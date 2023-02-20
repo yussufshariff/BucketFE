@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import MapView from "react-native-maps";
 import { StyleSheet, View, Text } from "react-native";
 
-import SearchBar from "./Components/SearchLocation";
+import SearchBar from "./Components/SearchBar";
 
 export default function App() {
   const [searchText, setSearchText] = useState("");
