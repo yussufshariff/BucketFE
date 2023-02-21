@@ -1,38 +1,33 @@
-import React, { useState } from "react";
-import MapView from "react-native-maps";
-import { StyleSheet, View, Text } from "react-native";
+import React from "react";
+import {NavigationContainer} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-import SearchBar from "./Components/SearchBar";
+import HomePage from "./Components/HomePage";
+import List from "./Components/List"
+import AddLocation from "./Components/AddLocation";
+
+const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const [searchText, setSearchText] = useState("");
-  const handleSearchTextChange = (text) => {
-    setSearchText(text);
-  };
-
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}>Bucket TEST</Text>
-      <SearchBar
-        placeholder="Search..."
-        onChangeText={handleSearchTextChange}
-      />
-      <MapView style={styles.map} />
-    </View>
+    <NavigationContainer>
+         <Stack.Navigator>
+          <Stack.Screen 
+          name="Home"
+          component={HomePage}
+          options={{title: "Welcome"}}
+          />
+          <Stack.Screen  
+          name="List"
+          component={List}
+          />
+          <Stack.Screen 
+          name="AddLocation"
+          component={AddLocation}
+          options={{title: "Add A Location"}}
+          />
+    </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-  },
-  map: {
-    width: "100%",
-    height: "100%",
-  },
-  title: {
-    fontWeight: "bold",
-    textAlign: "center",
-    fontSize: 40,
-  },
-});
