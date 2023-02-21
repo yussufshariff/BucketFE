@@ -7,6 +7,12 @@ const AddLocation = () => {
     latitude: 29.9792,
     longitude: 31.1342,
   });
+  const [selectedRegion, setSelectedRegion]= useState({
+    latitude: 29.9792,
+    longitude: 31.1342,
+    latitudeDelta: 0.01,
+    longitudeDelta: 0.001,
+  })
 
   const performSearch = async () => {
     try {
@@ -22,6 +28,12 @@ const AddLocation = () => {
           latitude: parseFloat(location.lat),
           longitude: parseFloat(location.lon),
         });
+        setSelectedRegion({
+          latitude: parseFloat(location.lat),
+          longitude: parseFloat(location.lon),
+          latitudeDelta: 0.001,
+          longitudeDelta: 0.001,
+        })
       }
     } catch (error) {
       console.error(error);
@@ -31,13 +43,10 @@ const AddLocation = () => {
     <View style={{ flex: 1 }}>
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 29.9792,
-          longitude: 31.1342,
-          latitudeDelta: 0.001,
-          longitudeDelta: 0.005,
-        }}
-        onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
+        region={selectedRegion}
+        onPress={
+          (e) => setSelectedLocation(e.nativeEvent.coordinate)
+        }
       >
         <Marker
           coordinate={
