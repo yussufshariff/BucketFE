@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
-
 const AddLocation = () => {
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedLocation, setSelectedLocation] = useState(null);
+  const [selectedLocation, setSelectedLocation] = useState({
+    latitude: 29.9792,
+    longitude: 31.1342,
+  });
 
   const performSearch = async () => {
     try {
@@ -14,17 +16,19 @@ const AddLocation = () => {
         )}&format=json&limit=1`
       );
       const data = await response.json();
-      const location = data[0];
-      setSelectedLocation({
-        latitude: parseFloat(location.lat),
-        longitude: parseFloat(location.lon),
-      });
+      if (data.length > 0) {
+        const location = data[0];
+        setSelectedLocation({
+          latitude: parseFloat(location.lat),
+          longitude: parseFloat(location.lon),
+        });
+      }
     } catch (error) {
       console.error(error);
     }
   };
   return (
-    <View>
+    <View style={{ flex: 1 }}>
       <MapView
         style={styles.map}
         initialRegion={{
