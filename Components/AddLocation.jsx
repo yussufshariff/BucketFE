@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { TextInput, StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
+import LocationCard from "./LocationCard";
 const AddLocation = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({
@@ -68,6 +69,7 @@ const AddLocation = () => {
           onSubmitEditing={performSearch}
         />
       </View>
+      {selectedLocation && <LocationCard selectedLocation={selectedLocation} />}
     </View>
   );
 };
