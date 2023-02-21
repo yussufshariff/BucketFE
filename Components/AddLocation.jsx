@@ -3,12 +3,16 @@ import { TextInput, StyleSheet, View } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 const AddLocation = () => {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState(null);
 
   const performSearch = async () => {
     try {
-      const response = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`);
+      const response = await fetch(
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          searchQuery
+        )}&format=json&limit=1`
+      );
       const data = await response.json();
       const location = data[0];
       setSelectedLocation({
@@ -18,7 +22,7 @@ const AddLocation = () => {
     } catch (error) {
       console.error(error);
     }
-  }
+  };
   return (
     <View>
       <MapView
@@ -31,9 +35,18 @@ const AddLocation = () => {
         }}
         onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
       >
-        <Marker coordinate={selectedLocation} />
+        <Marker
+          coordinate={
+            selectedLocation
+              ? {
+                  latitude: selectedLocation.latitude,
+                  longitude: selectedLocation.longitude,
+                }
+              : null
+          }
+        />
       </MapView>
-      <View style={{ position: 'absolute', top: 10, width: '100%' }}>
+      <View style={{ position: "absolute", top: 10, width: "100%" }}>
         <TextInput
           style={styles.searchBar}
           placeholder="Search..."
@@ -50,9 +63,9 @@ const styles = StyleSheet.create({
   searchBar: {
     borderRadius: 10,
     margin: 10,
-    color: '#000',
-    borderColor: '#666',
-    backgroundColor: '#FFF',
+    color: "#000",
+    borderColor: "#666",
+    backgroundColor: "#FFF",
     borderWidth: 1,
     height: 45,
     paddingHorizontal: 10,
