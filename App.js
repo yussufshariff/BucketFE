@@ -7,6 +7,7 @@ import List from "./Components/List";
 import AddLocation from "./Components/AddLocation";
 import UserCard from "./Components/UserCard";
 import UserDetails from "./Components/UserDetails";
+import LocationCard from "./Components/LocationCard";
 
 const Stack = createNativeStackNavigator();
 

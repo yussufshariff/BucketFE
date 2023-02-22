@@ -8,13 +8,13 @@ const AddLocation = () => {
     latitude: 29.9792,
     longitude: 31.1342,
   });
-  const [selectedRegion, setSelectedRegion]= useState({
+  const [selectedRegion, setSelectedRegion] = useState({
     latitude: 29.9792,
     longitude: 31.1342,
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
-  })
-
+  });
+  const [showModal, setShowModal] = useState(false);
   const performSearch = async () => {
     try {
       const response = await fetch(
@@ -34,20 +34,29 @@ const AddLocation = () => {
           longitude: parseFloat(location.lon),
           latitudeDelta: 0.001,
           longitudeDelta: 0.001,
-        })
+        });
+        const locationResponse = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lon}`
+        );
+        const locationData = await locationResponse.json();
+        setLocationData(locationData);
+        setShowModal(true);
+        // Set the location card visible
+        setShowLocationCard(true);
       }
     } catch (error) {
       console.error(error);
     }
+  };
+  const handleCloseModal = () => {
+    setShowModal(false);
   };
   return (
     <View style={{ flex: 1 }}>
       <MapView
         style={styles.map}
         region={selectedRegion}
-        onPress={
-          (e) => setSelectedLocation(e.nativeEvent.coordinate)
-        }
+        onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
       >
         <Marker
           coordinate={
@@ -69,7 +78,12 @@ const AddLocation = () => {
           onSubmitEditing={performSearch}
         />
       </View>
-      {selectedLocation && <LocationCard selectedLocation={selectedLocation} />}
+      {selectedLocation && (
+        <LocationCard
+          selectedLocation={selectedLocation}
+          // onClose={handleCloseModal}
+        />
+      )}
     </View>
   );
 };
