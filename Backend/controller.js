@@ -14,7 +14,7 @@ const {
   deleteSpecificLocationFromList,
   updateCommentVotes,
   updateProfilePicture,
-} = require('./model.js');
+} = require("./model.js");
 
 exports.receiveNewLocations = (req, res, next) => {
   const locationDetails = {
@@ -61,7 +61,7 @@ exports.receiveNewComments = (req, res, next) => {
 exports.getLocations = (req, res, next) => {
   fetchLocations()
     .then((locations) => {
-      res.status(200).send({ locations: locations });
+      return locations;
     })
     .catch(next);
 };
