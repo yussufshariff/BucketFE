@@ -5,12 +5,12 @@ import LocationCard from "./LocationCard";
 const AddLocation = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({
-    latitude: 29.9792,
-    longitude: 31.1342,
+    latitude: 53.47207390660095,
+    longitude: -2.238239950240586,
   });
   const [selectedRegion, setSelectedRegion] = useState({
-    latitude: 29.9792,
-    longitude: 31.1342,
+    latitude: 53.47207390660095,
+    longitude: -2.238239950240586,
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
   });
