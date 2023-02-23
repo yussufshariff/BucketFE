@@ -1,10 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
-
+import AddLocation from "./AddLocation";
+import AddToBucket from "./AddToBucket";
 const LocationCard = ({ selectedLocation }) => {
   const [locationData, setLocationData] = useState(null);
+  const [addedLocation, setAddedLocation] = useState(null);
+
   const onPressClose = () => {
     setLocationData(null);
+    setAddedLocation(null);
+  };
+  const onPressAdd = () => {
+    setAddedLocation(locationData.display_name);
   };
 
   useEffect(() => {
@@ -34,6 +41,12 @@ const LocationCard = ({ selectedLocation }) => {
         <Text style={styles.place}>{locationData.display_name}</Text>
         <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
         <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
+        <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
+        {addedLocation && (
+          <Text style={styles.addedLocation}>
+            Added to List: {addedLocation}
+          </Text>
+        )}
         <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
           <Text>Close</Text>
         </TouchableOpacity>
@@ -77,6 +90,12 @@ const styles = StyleSheet.create({
     backgroundColor: "#444444",
     borderRadius: 10,
     marginTop: 20,
+  },
+  addedLocation: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
+    marginTop: 10,
   },
 });
 
