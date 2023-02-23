@@ -8,13 +8,12 @@ const AddLocation = () => {
     latitude: 29.9792,
     longitude: 31.1342,
   });
-  const [selectedRegion, setSelectedRegion]= useState({
+  const [selectedRegion, setSelectedRegion] = useState({
     latitude: 29.9792,
     longitude: 31.1342,
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
-  })
-
+  });
   const performSearch = async () => {
     try {
       const response = await fetch(
@@ -34,20 +33,19 @@ const AddLocation = () => {
           longitude: parseFloat(location.lon),
           latitudeDelta: 0.001,
           longitudeDelta: 0.001,
-        })
+        });
       }
     } catch (error) {
       console.error(error);
     }
   };
+
   return (
     <View style={{ flex: 1 }}>
       <MapView
         style={styles.map}
         region={selectedRegion}
-        onPress={
-          (e) => setSelectedLocation(e.nativeEvent.coordinate)
-        }
+        onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
       >
         <Marker
           coordinate={
