@@ -3,20 +3,18 @@ const assert = require("assert");
 const { userInfo } = require("os");
 const { url } = require("./url");
 
-function connection() {
-  mongoose
-    .connect(url, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true,
-      dbName: "Bookit_Bucket",
-    })
-    .then(() => {
-      console.log("Connected to MongoDB!");
-    })
-    .catch((error) => {
-      console.log("Error connecting to MongoDB: " + error);
-    });
-}
+mongoose
+  .connect(url, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    dbName: "Bookit_Bucket",
+  })
+  .then(() => {
+    console.log("Connected to MongoDB!");
+  })
+  .catch((error) => {
+    console.log("Error connecting to MongoDB: " + error);
+  });
 
 const locationsSchema = new mongoose.Schema(
   {
@@ -129,7 +127,6 @@ exports.newComments = async (input) => {
 };
 
 exports.fetchLocations = () => {
-  connection();
   return locations
     .find()
     .clone()
