@@ -61,7 +61,7 @@ exports.receiveNewComments = (req, res, next) => {
 exports.getLocations = (req, res, next) => {
   fetchLocations()
     .then((locations) => {
-      return locations;
+      res.status(200).send({ locations: locations });
     })
     .catch(next);
 };
