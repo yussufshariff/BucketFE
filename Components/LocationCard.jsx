@@ -27,6 +27,7 @@ const LocationCard = ({ selectedLocation }) => {
   if (!selectedLocation || !locationData) {
     return null;
   }
+
   return (
     <View style={styles.modal}>
       <View style={styles.card}>
