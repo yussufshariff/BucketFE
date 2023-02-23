@@ -27,16 +27,12 @@ const LocationCard = ({ selectedLocation }) => {
   if (!selectedLocation || !locationData) {
     return null;
   }
-
   return (
     <View style={styles.modal}>
       <View style={styles.card}>
-        <Text style={styles.place}>{locationData.address.country}</Text>
-        <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
+        <Text style={styles.place}>{locationData.display_name}</Text>
         <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
-        <Text style={styles.postCode}>
-          PostCode: {locationData.address.postcode}
-        </Text>
+        <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
         <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
           <Text>Close</Text>
         </TouchableOpacity>
@@ -67,11 +63,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   coords: {
-    color: "#ffffff",
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  postCode: {
     color: "#ffffff",
     fontSize: 18,
     marginBottom: 10,
