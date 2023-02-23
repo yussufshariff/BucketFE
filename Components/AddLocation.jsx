@@ -14,7 +14,6 @@ const AddLocation = () => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
   });
-  const [showModal, setShowModal] = useState(false);
   const performSearch = async () => {
     try {
       const response = await fetch(
@@ -35,22 +34,12 @@ const AddLocation = () => {
           latitudeDelta: 0.001,
           longitudeDelta: 0.001,
         });
-        const locationResponse = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${location.lat}&lon=${location.lon}`
-        );
-        const locationData = await locationResponse.json();
-        setLocationData(locationData);
-        setShowModal(true);
-        // Set the location card visible
-        setShowLocationCard(true);
       }
     } catch (error) {
       console.error(error);
     }
   };
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
+
   return (
     <View style={{ flex: 1 }}>
       <MapView
@@ -78,12 +67,7 @@ const AddLocation = () => {
           onSubmitEditing={performSearch}
         />
       </View>
-      {selectedLocation && (
-        <LocationCard
-          selectedLocation={selectedLocation}
-          // onClose={handleCloseModal}
-        />
-      )}
+      {selectedLocation && <LocationCard selectedLocation={selectedLocation} />}
     </View>
   );
 };

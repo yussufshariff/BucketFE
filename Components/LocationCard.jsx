@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 
-const LocationCard = ({ selectedLocation, onClose }) => {
+const LocationCard = ({ selectedLocation }) => {
   const [locationData, setLocationData] = useState(null);
+  const onPressClose = () => {
+    setLocationData(null);
+  };
 
   useEffect(() => {
     const fetchLocationData = async () => {
@@ -20,17 +23,10 @@ const LocationCard = ({ selectedLocation, onClose }) => {
       fetchLocationData();
     }
   }, [selectedLocation]);
+
   if (!selectedLocation || !locationData) {
     return null;
   }
-
-  console.log(locationData.address.country);
-  console.log(locationData.lat);
-  console.log(locationData.lon);
-  //   console.log(locationData.boundingbox);
-  //   console.log(locationData.address);
-  //   console.log(locationData.address.city);
-  //   console.log(locationData.address.country);
 
   return (
     <View style={styles.modal}>
@@ -38,10 +34,10 @@ const LocationCard = ({ selectedLocation, onClose }) => {
         <Text style={styles.place}>{locationData.address.country}</Text>
         <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
         <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
-        <Text style={styles.address}>
-          Address: {locationData.address.postcode}
+        <Text style={styles.postCode}>
+          PostCode: {locationData.address.postcode}
         </Text>
-        <TouchableOpacity onPress={onClose} style={styles.closeButton}>
+        <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
           <Text>Close</Text>
         </TouchableOpacity>
       </View>
@@ -75,17 +71,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
   },
-  closeButton: {
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-    padding: 10,
-    backgroundColor: "#444444",
-    borderRadius: 10,
-    marginTop: 20,
-  },
-  address: {
+  postCode: {
     color: "#ffffff",
     fontSize: 18,
     marginBottom: 10,
