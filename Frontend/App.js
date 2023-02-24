@@ -1,14 +1,13 @@
 import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-
 import HomePage from "./Components/HomePage";
 import List from "./Components/List";
 import AddLocation from "./Components/AddLocation";
 import UserCard from "./Components/UserCard";
 import UserDetails from "./Components/UserDetails";
-import LocationCard from "./Components/LocationCard";
-import LocationDetails from "./Components/LocationDetails";
+import CarouselCards from "./Components/CarouselCards";
+import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
@@ -33,8 +32,9 @@ export default function App() {
           options={{ title: "User Profile" }}
         />
         <Stack.Screen
+          styles={styles.container}
           name="LocationDetails"
-          component={LocationDetails}
+          component={CarouselCards}
           options={{ title: "Location Details" }}
         />
       </Stack.Navigator>
@@ -42,3 +42,12 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 50,
+  },
+});
