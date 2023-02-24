@@ -1,4 +1,4 @@
-import { StyleSheet, View, Text, Button , TextInput} from "react-native";
+import { StyleSheet, View, Text, Button , TextInput, Image} from "react-native";
 import React, { useEffect, useState } from "react";
 
 
@@ -18,7 +18,8 @@ export default HomePage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Sign in</Text>
+      {/* <Text style={styles.title}>Sign in</Text> */}
+      <Image style={styles.image} source = {require("../assets/logo_transparent.png")} />
       <TextInput
           style={styles.searchBar}
           placeholder="Username"
@@ -35,10 +36,11 @@ export default HomePage = ({ navigation }) => {
         />
 
       <Button
+      style={styles.loginButton}
         title="Login"
         onPress={() => navigation.navigate("AddLocation")}
       />
-      <Button
+      <Button    
         title="Create new User"
         onPress={() => navigation.navigate("NewUserForm")}
       />
@@ -61,9 +63,22 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF",
     borderWidth: 1,
     height: 45,
+    width: 200,
     paddingHorizontal: 10,
     fontSize: 18,
-  },
+  }, container: {
+    flex: 1,
+    backgroundColor: '#fffafa',
+    alignItems: 'center',
+    justifyContent: 'center',
+   }, image: {
+    width: 300,
+    height: 300,
+   }, loginButton: {
+    width: 200,
+    height: 45,
+    backgroundColor: '#fffafa',
+   }
 });
 
 
