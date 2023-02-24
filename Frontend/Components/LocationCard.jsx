@@ -1,4 +1,19 @@
 import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import AddLocation from "./AddLocation";
+import AddToBucket from "./AddToBucket";
+import { useNavigation } from "@react-navigation/native";
+
+const LocationCard = ({ selectedLocation }) => {
+  const [locationData, setLocationData] = useState(null);
+  const [addedLocation, setAddedLocation] = useState(null);
+
+  const navigation = useNavigation();
+
+  const handleProfilePress = () => {
+    navigation.navigate("LocationDetails");
+  };
+
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
@@ -80,6 +95,13 @@ const LocationCard = ({ selectedLocation }) => {
         )}
         <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
           <Text>Close</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.closeButton}
+          title="Create new User"
+          onPress={() => navigation.navigate("LocationDetails")}
+        >
+          <Text>Read More</Text>
         </TouchableOpacity>
       </View>
     </View>
