@@ -23,11 +23,11 @@ const UserCard = ({ name, profilePicture }) => {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
+    padding: 5,
   },
   profilePicture: {
-    width: 48,
-    height: 48,
+    width: 35,
+    height: 35,
     borderRadius: 24,
     marginRight: 16,
   },
