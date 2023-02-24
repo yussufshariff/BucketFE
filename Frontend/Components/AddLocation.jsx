@@ -1,7 +1,8 @@
-import React, { useState } from "react";
-import { TextInput, StyleSheet, View } from "react-native";
+import React, { useState, useEffect } from "react";
+import { TextInput, StyleSheet, View, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
+import * as Location from "expo-location";
 const AddLocation = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({
@@ -14,6 +15,36 @@ const AddLocation = () => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
   });
+  useEffect(() => {
+    getLocationPermission();
+  }, []);
+
+  const getLocationPermission = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== "granted") {
+      Alert.alert(
+        "Permission needed",
+        "This app needs your permission to access your location",
+        [{ text: "OK", onPress: () => getLocationPermission() }]
+      );
+    } else {
+      getCurrentLocation();
+    }
+  };
+
+  const getCurrentLocation = async () => {
+    let location = await Location.getCurrentPositionAsync({});
+    setSelectedLocation({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+    });
+    setSelectedRegion({
+      latitude: location.coords.latitude,
+      longitude: location.coords.longitude,
+      latitudeDelta: 0.001,
+      longitudeDelta: 0.001,
+    });
+  };
   const performSearch = async () => {
     try {
       const response = await fetch(
