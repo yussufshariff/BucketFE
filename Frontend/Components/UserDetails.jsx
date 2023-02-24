@@ -33,15 +33,6 @@ const UserDetails = () => {
         renderItem={({item}) => <Text style={styles.item_style}>{item}</Text>}
         />
       </View>
-      {/* <View >
-       {bucketList.map((bucket) => {
-        return (
-          <View contentContainerStyle={styles.body}>
-            <Text>{bucket}</Text>
-          </View>
-        )
-       })}
-      </View> */}
       <View>
         <Text style={styles.header_style}> My Buckets</Text>
       <ScrollView contentContainerStyle={styles.body}>

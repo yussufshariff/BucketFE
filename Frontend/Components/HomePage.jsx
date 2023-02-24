@@ -18,7 +18,6 @@ export default HomePage = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      {/* <Text style={styles.title}>Sign in</Text> */}
       <Image style={styles.image} source = {require("../assets/logo_transparent.png")} />
       <TextInput
           style={styles.searchBar}
@@ -45,8 +44,6 @@ export default HomePage = ({ navigation }) => {
         onPress={() => navigation.navigate("NewUserForm")}
       />
     </View>
-
-
   );
 };
 
