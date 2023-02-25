@@ -1,9 +1,10 @@
 import { StyleSheet, View, Text, Button, TextInput, Image } from "react-native";
 import React, { useEffect, useState } from "react";
+import { getAllLocations } from "../Utils/api";
 export default HomePage = ({ navigation }) => {
   const [user, setUser] = useState(null);
-  console.log(user);
   const [password, setPassword] = useState(null);
+  const [test, setTest] = useState([]);
   const performSearchUser = async (user) => {
     // This performs a search of user data
   };
@@ -12,6 +13,13 @@ export default HomePage = ({ navigation }) => {
     }
     // This performs a search of user data
   };
+
+  useEffect(() => {
+    getAllLocations().then((locations) => {
+      setTest(locations);
+    });
+  }, []);
+
   return (
     <View style={styles.container}>
       <Image
@@ -32,6 +40,7 @@ export default HomePage = ({ navigation }) => {
         onChangeText={(password) => setPassword(password)}
         onSubmitEditing={checkPassword}
       />
+
       <Button
         style={styles.loginButton}
         title="Login"
@@ -76,5 +85,9 @@ const styles = StyleSheet.create({
     width: 200,
     height: 45,
     backgroundColor: "#FFFAFA",
+  },
+  text: {
+    textAlign: "center",
+    marginTop: 50,
   },
 });
