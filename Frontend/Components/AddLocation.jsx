@@ -4,7 +4,7 @@ import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
 import { useContext } from "react";
-import UserContext from "./userContext";
+import UserContext from "../Contexts/userContext";
 
 const AddLocation = () => {
   const loggedInUser = useContext(UserContext);

@@ -2,7 +2,7 @@ import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
-import UserContext from "./userContext";
+import UserContext from "../Contexts/userContext";
 
 const UserCard = (userSettings) => {
   const loggedInUser = useContext(UserContext);

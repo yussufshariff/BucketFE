@@ -6,11 +6,9 @@ import {
   Dimensions,
   Image,
   Button,
-  Pressable,
-  TouchableOpacity,
 } from "react-native";
 import { useContext } from 'react'
-import UserContext from './userContext';
+import UserContext from "../Contexts/userContext";
 
 export const SLIDER_WIDTH = Dimensions.get("window").width + 80;
 export const ITEM_WIDTH = Math.round(SLIDER_WIDTH * 0.7);

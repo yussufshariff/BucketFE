@@ -10,7 +10,7 @@ import {
 } from "react-native";
 import { useState } from "react";
 import { useContext } from "react";
-import UserContext from "./userContext";
+import UserContext from "../Contexts/userContext";
 
 const UserDetails = () => {
   const loggedInUser = useContext(UserContext);
