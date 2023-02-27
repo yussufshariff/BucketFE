@@ -1,8 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
+import { useNavigation } from "@react-navigation/native";
+
+import { useContext } from "react";
+import UserContext from "../Contexts/userContext";
+
 const LocationCard = ({ selectedLocation }) => {
+  const loggedInUser = useContext(UserContext);
   const [locationData, setLocationData] = useState(null);
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
@@ -11,6 +17,13 @@ const LocationCard = ({ selectedLocation }) => {
     ...styles.place,
     color: "#FFFFFF",
   });
+
+  const navigation = useNavigation();
+
+  const handleProfilePress = () => {
+    navigation.navigate("LocationDetails");
+  };
+
   const onPressClose = () => {
     setLocationData(null);
     setAddedLocation(null);
@@ -25,6 +38,7 @@ const LocationCard = ({ selectedLocation }) => {
     setRemovedLocation(null);
     setAddGreen({ ...styles.place, color: "#00FF00" });
   };
+
   const onPressRemove = () => {
     setAddedLocation(null);
     setAddGreen({
@@ -55,6 +69,7 @@ const LocationCard = ({ selectedLocation }) => {
   if (!selectedLocation || !locationData) {
     return null;
   }
+
   return (
     <View style={styles.modal}>
       <View style={styles.card}>
@@ -65,7 +80,7 @@ const LocationCard = ({ selectedLocation }) => {
         {addedLocation && (
           <Text style={styles.addedLocation}>
             {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
-            added to your list
+            ADDED to your list
           </Text>
         )}
         <RemoveFromBucket
@@ -75,11 +90,18 @@ const LocationCard = ({ selectedLocation }) => {
         {removedLocation && (
           <Text style={styles.removedLocation}>
             {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
-            removed from your list
+            REMOVED from your list
           </Text>
         )}
         <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
           <Text>Close</Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={styles.closeButton}
+          title="Create new User"
+          onPress={() => navigation.navigate("LocationDetails")}
+        >
+          <Text>Read More</Text>
         </TouchableOpacity>
       </View>
     </View>
