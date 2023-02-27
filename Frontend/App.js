@@ -7,23 +7,22 @@ import UserCard from "./Components/UserCard";
 import UserDetails from "./Components/UserDetails";
 import CarouselCards from "./Components/CarouselCards";
 import { StyleSheet } from "react-native";
-import UserContext from "./Contexts/userContext";
+import UserContext from "./Components/userContext";
 
 const Stack = createNativeStackNavigator();
-const [user, setUser] = useState({});
+
 
 export default function App() {
-  const toggleUser = () => {
-    setUser("papapa");
-  };
+  const [settingUser, setSettingUser] = useState({})
 
   const userSettings = {
     bucket_list: [],
-    _id: "63f34bbb02b250f7d309bf98",
-    name: "Lee Hamilton",
-    email: "lphamilton87@gmail.com",
-    password: "leepassword",
-    profile_picture: "https://media.licdn.com/dms/image/D563",
+    _id: settingUser.id,
+    name: settingUser.name,
+    email: settingUser.email,
+    password: settingUser.password,
+    profile_picture: settingUser.profile_picture,
+    setSettingUser
   };
 
   return (
