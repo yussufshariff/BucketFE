@@ -1,20 +1,28 @@
-import { StyleSheet, View, Text, Button, TextInput, Image } from "react-native";
-import React, { useEffect, useState } from "react";
-import { getAllLocations } from "../Utils/api";
-export default HomePage = ({ navigation }) => {
+import { StyleSheet, View, Button, TextInput, Image } from "react-native";
+import React, { useState, useContext } from "react";
+import axios from "axios";
 
-  const [user, setUser] = useState(null);
-  const [password, setPassword] = useState(null);
-  const [test, setTest] = useState([]);
-  
-  const performSearchUser = async (user) => {
+import UserContext from "../Contexts/userContext";
+const myContext = useContext(UserContext);
+
+console.log(myContext);
+
+export default HomePage = ({ navigation }) => {
+  const [user, setUser] = useState({});
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
+  const performSearchUser = async () => {
     axios
       .get(`https://red-muddy-woodpecker.cyclic.app/api/users/${username}`)
-      .then((userFound) => {
-        if (userFound.password === password) {
-          setUser(user);
-          navigation.navigate('AddLocation');
-        } else return 'Incorrent username or password';
+      .then((response) => {
+        if (response.data.userData.password === password) {
+          setUser(response.data.userData);
+          navigation.navigate("AddLocation");
+        } else return "Incorrent username or password";
+      })
+      .catch((err) => {
+        alert("Invalid username or password");
       });
   };
 
@@ -22,47 +30,45 @@ export default HomePage = ({ navigation }) => {
     <View style={styles.container}>
       <Image
         style={styles.image}
-        source={require('../assets/logo_transparent.png')}
+        source={require("../assets/logo_transparent.png")}
       />
       <TextInput
         style={styles.searchBar}
-        placeholder='Username'
+        placeholder="Username"
         value={setUser}
         onChangeText={(username) => setUsername(username)}
-        onSubmitEditing={performSearchUser}
       />
       <TextInput
         style={styles.searchBar}
-        placeholder='Password'
+        placeholder="Password"
         value={setPassword}
         onChangeText={(password) => setPassword(password)}
-        onSubmitEditing={checkPassword}
       />
 
       <Button
         style={styles.loginButton}
-        title='Login'
+        title="Login"
         onPress={() => performSearchUser()}
       />
       <Button
-        title='Create new User'
-        onPress={() => navigation.navigate('NewUserForm')}
+        title="Create new User"
+        onPress={() => navigation.navigate("NewUserForm")}
       />
     </View>
   );
 };
 const styles = StyleSheet.create({
   title: {
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     fontSize: 40,
   },
   searchBar: {
     borderRadius: 10,
     margin: 10,
-    color: '#000',
-    borderColor: '#666',
-    backgroundColor: '#FFF',
+    color: "#000",
+    borderColor: "#666",
+    backgroundColor: "#FFF",
     borderWidth: 1,
     height: 45,
     width: 200,
@@ -71,9 +77,9 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    backgroundColor: '#FFFAFA',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#FFFAFA",
+    alignItems: "center",
+    justifyContent: "center",
   },
   image: {
     width: 300,
@@ -82,7 +88,7 @@ const styles = StyleSheet.create({
   loginButton: {
     width: 200,
     height: 45,
-    backgroundColor: '#FFFAFA',
+    backgroundColor: "#FFFAFA",
   },
   text: {
     textAlign: "center",
