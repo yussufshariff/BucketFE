@@ -69,14 +69,16 @@ const LocationCard = ({ selectedLocation }) => {
   if (!selectedLocation || !locationData) {
     return null;
   }
-
   return (
     <View style={styles.modal}>
       <View style={styles.card}>
         <Text style={addGreen}>{locationData.display_name}</Text>
         <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
         <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
-        <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
+        <AddToBucket
+          locationData={locationData}
+          setAddedLocation={setAddedLocation}
+        />
         {addedLocation && (
           <Text style={styles.addedLocation}>
             {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
