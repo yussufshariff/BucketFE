@@ -3,7 +3,20 @@ import { TextInput, StyleSheet, View, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
+import { useContext } from "react";
+import UserContext from "../Contexts/userContext";
+const {
+  CustomMarkerGWC,
+  CustomMarkerTM,
+  CustomMarkerMP,
+  CustomMarkerCI,
+  CustomMarkerCRS,
+  CustomMarkerColo,
+  CustomMarkerPetra,
+} = require("./CustomMarkers");
 const AddLocation = () => {
+  const loggedInUser = useContext(UserContext);
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({
     latitude: 53.47207390660095,
@@ -78,6 +91,78 @@ const AddLocation = () => {
         region={selectedRegion}
         onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
       >
+        {/* Machu Picchu */}
+        <Marker
+          pinColor="blue"
+          coordinate={{
+            latitude: -13.22499017762308,
+            longitude: -72.4971218204342,
+          }}
+        >
+          <CustomMarkerMP />
+        </Marker>
+        {/* Christ the Redeemer */}
+        <Marker
+          pinColor="blue"
+          coordinate={{
+            latitude: -22.951748034063,
+            longitude: -43.210444286599156,
+          }}
+        >
+          <CustomMarkerCRS />
+        </Marker>
+        {/* Taj Mahal */}
+        <Marker
+          pinColor="blue"
+          coordinate={{
+            latitude: 27.1753356734283,
+            longitude: 78.04214219812248,
+          }}
+        >
+          <CustomMarkerTM />
+        </Marker>
+        {/* The Great Wall of china */}
+        <Marker
+          pinColor="blue"
+          coordinate={{
+            latitude: 40.432111842699086,
+            longitude: 116.57038562722992,
+          }}
+        >
+          <CustomMarkerGWC />
+        </Marker>
+
+        {/* Colloseum */}
+        <Marker
+          pinColor="blue"
+          coordinate={{
+            latitude: 41.89036991543221,
+            longitude: 12.492209440757193,
+          }}
+        >
+          <CustomMarkerColo />
+        </Marker>
+        {/* Petra*/}
+        <Marker
+          pinColor="blue"
+          coordinate={{
+            latitude: 30.328630331877523,
+            longitude: 35.44430855399802,
+          }}
+        >
+          <CustomMarkerPetra />
+        </Marker>
+        {/* Chichen Itza */}
+        <Marker
+          pinColor="blue"
+          coordinate={{
+            latitude: 21.162125355665946,
+            longitude: -86.84085445435743,
+          }}
+        >
+          <CustomMarkerCI />
+        </Marker>
+
         <Marker
           coordinate={
             selectedLocation

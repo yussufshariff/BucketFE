@@ -1,7 +1,10 @@
 import React from "react";
 import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { useContext } from 'react'
+import UserContext from "../Contexts/userContext";
 
 const RemoveFromBucket = ({ locationData, onPressRemove }) => {
+  const loggedInUser = useContext(UserContext)
   return (
     <TouchableOpacity style={styles.add} onPress={onPressRemove}>
       <Text>Remove From List</Text>
