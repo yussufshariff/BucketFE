@@ -4,28 +4,41 @@ import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
 import axios from "axios";
 
-const AddToBucket = ({ locationData, onPressAdd }) => {
+const AddToBucket = ({ locationData, setAddedLocation }) => {
   const loggedInUser = useContext(UserContext);
   const user = loggedInUser.username;
 
-  // console.log(locationData.display_name);
-  // console.log(locationData.lon);
-  // console.log(locationData.lang);
+  const handleNewLocation = (e) => {
+    const postBody = {
+      name: locationData.display_name,
+      coordinates: locationData.lon,
+    };
+    return axios.post(
+      `https://red-muddy-woodpecker.cyclic.app/api/locations`,
+      postBody
+    );
+  };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
     const patchBody = {
       name: locationData.display_name,
       coordinates: locationData.lon,
     };
-    axios.patch(
+    setAddedLocation(locationData.display_name);
+    return axios.patch(
       `https://red-muddy-woodpecker.cyclic.app/api/${user}/list`,
       patchBody
     );
   };
 
   return (
-    <TouchableOpacity style={styles.add} onPress={handleSubmit}>
+    <TouchableOpacity
+      style={styles.add}
+      onPress={() => {
+        handleNewLocation();
+        handleSubmit();
+      }}
+    >
       <Text>Add To Your Bucket List</Text>
     </TouchableOpacity>
   );

@@ -4,7 +4,7 @@ import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
 
-import { useContext } from 'react'
+import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
 
 const LocationCard = ({ selectedLocation }) => {
@@ -69,14 +69,16 @@ const LocationCard = ({ selectedLocation }) => {
   if (!selectedLocation || !locationData) {
     return null;
   }
-
   return (
     <View style={styles.modal}>
       <View style={styles.card}>
         <Text style={styles.place}>{locationData.display_name}</Text>
         <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
         <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
-        <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
+        <AddToBucket
+          locationData={locationData}
+          setAddedLocation={setAddedLocation}
+        />
         {addedLocation && (
           <Text style={styles.addedLocation}>
             {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
