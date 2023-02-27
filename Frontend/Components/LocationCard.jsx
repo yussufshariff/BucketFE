@@ -2,8 +2,11 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
 import AddToBucket from "./AddToBucket";
 import { useNavigation } from "@react-navigation/native";
+import { useContext } from 'react'
+import UserContext from './userContext';
 
 const LocationCard = ({ selectedLocation }) => {
+  const loggedInUser = useContext(UserContext)
   const [locationData, setLocationData] = useState(null);
   const [addedLocation, setAddedLocation] = useState(null);
 

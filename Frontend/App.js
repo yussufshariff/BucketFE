@@ -18,7 +18,7 @@ export default function App() {
   const userSettings = {
     bucket_list: [],
     _id: settingUser.id,
-    name: settingUser.name,
+    username: settingUser.username,
     email: settingUser.email,
     password: settingUser.password,
     profile_picture: settingUser.profile_picture,

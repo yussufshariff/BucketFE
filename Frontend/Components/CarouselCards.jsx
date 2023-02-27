@@ -3,8 +3,11 @@ import { View, Text, StyleSheet } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import comments from "../data/comments";
+import { useContext } from 'react'
+import UserContext from './userContext';
 
 const CarouselCards = () => {
+  const loggedInUser = useContext(UserContext)
   const [index, setIndex] = React.useState(0);
   const isCarousel = React.useRef(null);
 

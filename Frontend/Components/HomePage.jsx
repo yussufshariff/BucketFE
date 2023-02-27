@@ -7,7 +7,6 @@ export default HomePage = ({ navigation }) => {
   const myContext = useContext(UserContext);
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-console.log(myContext)
 
   const performSearchUser = async () => {
     axios

@@ -9,7 +9,13 @@ import {
   FlatList,
 } from "react-native";
 import { useState } from "react";
+import { useContext } from 'react'
+import UserContext from './userContext';
+
+
 const UserDetails = () => {
+  const loggedInUser = useContext(UserContext)
+  
   const [images, setImages] = useState([
     "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg",
     "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1200px-Colosseo_2020.jpg",

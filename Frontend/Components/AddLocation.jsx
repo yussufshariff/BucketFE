@@ -3,8 +3,15 @@ import { TextInput, StyleSheet, View, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
+import { useContext } from 'react'
+import UserContext from './userContext';
+
 
 const AddLocation = () => {
+  const loggedInUser = useContext(UserContext)
+
+
+
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({
     latitude: 53.47207390660095,
