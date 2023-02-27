@@ -4,7 +4,7 @@ import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
 
-import { useContext } from 'react'
+import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
 
 const LocationCard = ({ selectedLocation }) => {
@@ -73,14 +73,14 @@ const LocationCard = ({ selectedLocation }) => {
   return (
     <View style={styles.modal}>
       <View style={styles.card}>
-        <Text style={styles.place}>{locationData.display_name}</Text>
+        <Text style={addGreen}>{locationData.display_name}</Text>
         <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
         <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
         <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
         {addedLocation && (
           <Text style={styles.addedLocation}>
             {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
-            added to your list
+            ADDED to your list
           </Text>
         )}
         <RemoveFromBucket
@@ -90,7 +90,7 @@ const LocationCard = ({ selectedLocation }) => {
         {removedLocation && (
           <Text style={styles.removedLocation}>
             {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
-            removed from your list
+            REMOVED from your list
           </Text>
         )}
         <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   place: {
-    color: "#FF0000",
+    color: "#FFFFFF",
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
