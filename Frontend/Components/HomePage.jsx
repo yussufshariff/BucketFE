@@ -1,7 +1,7 @@
 import { StyleSheet, View, Button, TextInput, Image } from 'react-native';
 import React, { useState, useContext } from 'react';
 import axios from 'axios';
-import UserContext from './userContext';
+import UserContext from "../Contexts/userContext";
 
 export default HomePage = ({ navigation }) => {
   const myContext = useContext(UserContext);

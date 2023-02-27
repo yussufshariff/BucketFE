@@ -1,7 +1,7 @@
 import React from "react";
-import { Text, View, TouchableOpacity, StyleSheet } from "react-native";
+import { Text, TouchableOpacity, StyleSheet } from "react-native";
 import { useContext } from 'react'
-import UserContext from './userContext';
+import UserContext from "../Contexts/userContext";
 
 const AddToBucket = ({ locationData, onPressAdd }) => {
   const loggedInUser = useContext(UserContext)

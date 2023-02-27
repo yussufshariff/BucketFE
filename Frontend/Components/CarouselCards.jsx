@@ -4,7 +4,7 @@ import Carousel, { Pagination } from "react-native-snap-carousel";
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import comments from "../data/comments";
 import { useContext } from 'react'
-import UserContext from './userContext';
+import UserContext from "../Contexts/userContext";
 
 const CarouselCards = () => {
   const loggedInUser = useContext(UserContext)

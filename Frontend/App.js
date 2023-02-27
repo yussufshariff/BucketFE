@@ -7,7 +7,7 @@ import UserCard from "./Components/UserCard";
 import UserDetails from "./Components/UserDetails";
 import CarouselCards from "./Components/CarouselCards";
 import { StyleSheet } from "react-native";
-import UserContext from "./Components/userContext";
+import UserContext from "./Contexts/userContext";
 
 const Stack = createNativeStackNavigator();
 
