@@ -9,3 +9,10 @@ export const getAllLocations = () => {
     return locations;
   });
 };
+
+export const postNewUser = (newUser) => {
+  return request.post("/users", newUser).then(( data ) => {
+    console.log(data);
+    // return user;
+  })
+}

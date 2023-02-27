@@ -6,6 +6,7 @@ import AddLocation from "./Components/AddLocation";
 import UserCard from "./Components/UserCard";
 import UserDetails from "./Components/UserDetails";
 import CarouselCards from "./Components/CarouselCards";
+import NewUserForm from "./Components/NewUserForm";
 import { StyleSheet } from "react-native";
 import UserContext from "./Contexts/userContext";
 
@@ -49,6 +50,11 @@ export default function App() {
             name="LocationDetails"
             component={CarouselCards}
             options={{ title: "Location Details" }}
+          />
+          <Stack.Screen
+          name="NewUserForm"
+          component={NewUserForm}
+          options={{ title: "Create New User" }}
           />
         </Stack.Navigator>
         <UserCard />
