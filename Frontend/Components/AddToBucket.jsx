@@ -35,8 +35,9 @@ const AddToBucket = ({ locationData, setAddedLocation }) => {
     <TouchableOpacity
       style={styles.add}
       onPress={() => {
-        handleNewLocation();
-        handleSubmit();
+        handleNewLocation().then(() => {
+          handleSubmit();
+        });
       }}
     >
       <Text>Add To Your Bucket List</Text>
