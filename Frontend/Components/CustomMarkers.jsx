@@ -56,8 +56,8 @@ function CustomMarkerCI() {
 //styles for our custom marker.
 const styles = StyleSheet.create({
   marker: {
-    paddingVertical: 10,
-    paddingHorizontal: 10,
+    paddingVertical: 2,
+    paddingHorizontal: 4,
     backgroundColor: "#007bff",
     borderColor: "#eee",
     borderRadius: 10,
