@@ -1,21 +1,20 @@
 import React from "react";
 import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from 'react'
-import UserContext from './userContext';
+import { useContext } from "react";
+import UserContext from "./userContext";
 
 const UserCard = (userSettings) => {
-  const loggedInUser = useContext(UserContext)
+  const loggedInUser = useContext(UserContext);
   const navigation = useNavigation();
 
-  console.log(userSettings)
+  console.log(userSettings);
 
   const handleProfilePress = () => {
-    navigation.navigate("UserDetails", { name });
+    navigation.navigate("UserDetails");
   };
 
-  const imageUrl =
-    "https://melmagazine.com/wp-content/uploads/2021/01/66f-1.jpg";
+  const imageUrl = loggedInUser.profile_picture;
 
   return (
     <View style={styles.container}>
