@@ -2,11 +2,10 @@ import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
-import data from "./data";
+import comments from "../data/comments";
 
 const CarouselCards = () => {
   const [index, setIndex] = React.useState(0);
-
   const isCarousel = React.useRef(null);
 
   return (
@@ -17,7 +16,7 @@ const CarouselCards = () => {
         layoutCardOffset={9}
         activeSlideAlignment="start"
         ref={isCarousel}
-        data={data}
+        data={comments}
         renderItem={CarouselCardItem}
         sliderWidth={SLIDER_WIDTH}
         itemWidth={ITEM_WIDTH}
@@ -26,7 +25,7 @@ const CarouselCards = () => {
         inactiveSlideShift={0}
       />
       <Pagination
-        dotsLength={data.length}
+        dotsLength={comments.length}
         activeDotIndex={index}
         carouselRef={isCarousel}
         dotStyle={{

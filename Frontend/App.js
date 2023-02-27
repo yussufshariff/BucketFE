@@ -2,7 +2,6 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomePage from "./Components/HomePage";
-import List from "./Components/List";
 import AddLocation from "./Components/AddLocation";
 import UserCard from "./Components/UserCard";
 import UserDetails from "./Components/UserDetails";
@@ -20,7 +19,6 @@ export default function App() {
           component={HomePage}
           options={{ title: "Welcome" }}
         />
-        <Stack.Screen name="List" component={List} />
         <Stack.Screen
           name="AddLocation"
           component={AddLocation}
