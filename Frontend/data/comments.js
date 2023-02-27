@@ -1,4 +1,4 @@
-const data = [
+const comments = [
   {
     title: "Test_HUman11",
     body: "Ut tincidunt tincidunt erat. Sed cursus turpis vitae tortor. Quisque malesuada placerat nisl. Donec quam felis",
@@ -19,4 +19,4 @@ const data = [
   },
 ];
 
-export default data;
+export default comments;

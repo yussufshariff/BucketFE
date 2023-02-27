@@ -1,10 +1,12 @@
-import { StyleSheet, View, Text, Button, TextInput, Image } from 'react-native';
-import React, { useEffect, useState } from 'react';
+import { StyleSheet, View, Text, Button, TextInput, Image } from "react-native";
+import React, { useEffect, useState } from "react";
+import { getAllLocations } from "../Utils/api";
 export default HomePage = ({ navigation }) => {
-  const [user, setUser] = useState({});
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
 
+  const [user, setUser] = useState(null);
+  const [password, setPassword] = useState(null);
+  const [test, setTest] = useState([]);
+  
   const performSearchUser = async (user) => {
     axios
       .get(`https://red-muddy-woodpecker.cyclic.app/api/users/${username}`)
@@ -15,7 +17,6 @@ export default HomePage = ({ navigation }) => {
         } else return 'Incorrent username or password';
       });
   };
-  // This performs a search of user data
 
   return (
     <View style={styles.container}>
@@ -37,6 +38,7 @@ export default HomePage = ({ navigation }) => {
         onChangeText={(password) => setPassword(password)}
         onSubmitEditing={checkPassword}
       />
+
       <Button
         style={styles.loginButton}
         title='Login'
@@ -81,5 +83,9 @@ const styles = StyleSheet.create({
     width: 200,
     height: 45,
     backgroundColor: '#FFFAFA',
+  },
+  text: {
+    textAlign: "center",
+    marginTop: 50,
   },
 });

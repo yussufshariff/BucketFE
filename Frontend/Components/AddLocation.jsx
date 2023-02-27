@@ -3,6 +3,7 @@ import { TextInput, StyleSheet, View, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
+
 const AddLocation = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({

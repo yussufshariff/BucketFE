@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
-import AddLocation from "./AddLocation";
 import AddToBucket from "./AddToBucket";
 import { useNavigation } from "@react-navigation/native";
 
