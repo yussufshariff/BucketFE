@@ -8,6 +8,8 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
+
+import {getUsers} from "../Utils/api"
 import { useState } from "react";
 import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
