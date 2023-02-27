@@ -8,7 +8,9 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import {getUsers} from "../Utils/api"
+
 const UserDetails = () => {
   const [images, setImages] = useState([
     "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg",

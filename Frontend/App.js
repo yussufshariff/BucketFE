@@ -7,6 +7,7 @@ import AddLocation from "./Components/AddLocation";
 import UserCard from "./Components/UserCard";
 import UserDetails from "./Components/UserDetails";
 import CarouselCards from "./Components/CarouselCards";
+import NewUserForm from "./Components/NewUserForm";
 import { StyleSheet } from "react-native";
 
 const Stack = createNativeStackNavigator();
@@ -37,7 +38,12 @@ export default function App() {
           component={CarouselCards}
           options={{ title: "Location Details" }}
         />
-      </Stack.Navigator>
+      <Stack.Screen
+          name="NewUserForm"
+          component={NewUserForm}
+          options={{ title: "Create New User" }}
+          />
+          </Stack.Navigator>
       <UserCard />
     </NavigationContainer>
   );
