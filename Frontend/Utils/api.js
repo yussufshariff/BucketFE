@@ -12,7 +12,6 @@ export const getAllLocations = () => {
 
 export const postNewUser = (newUser) => {
   return request.post("/users", newUser).then(( data ) => {
-    console.log(data);
-    // return user;
+    return data.data
   })
 }

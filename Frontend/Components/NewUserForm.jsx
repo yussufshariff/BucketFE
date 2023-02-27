@@ -2,8 +2,12 @@ import React from "react";
 import { View, StyleSheet, Button, TextInput, Image } from "react-native";
 import { useState } from "react";
 import {postNewUser} from "../Utils/api";
+import { useContext } from "react";
+import UserContext from "../Contexts/userContext";
 
-const NewUserForm = () => { 
+
+const NewUserForm = ({ navigation }) => { 
+    const myContext = useContext(UserContext);
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -21,9 +25,10 @@ const NewUserForm = () => {
         event.preventDefault();
         console.log(username, email, password);
         const newUser = {username: username, email: email, password: password}
-        console.log(newUser);
-        postNewUser(newUser).then((res) => {
-            console.log(res, "<<< res")
+
+        postNewUser(newUser).then((data) => {
+            myContext.setSettingUser(data)
+            navigation.navigate('AddLocation');
         })
 
     }
