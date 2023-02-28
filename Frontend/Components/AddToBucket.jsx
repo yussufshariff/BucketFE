@@ -46,7 +46,7 @@ const AddToBucket = ({ locationData, setAddedLocation }) => {
 };
 const styles = StyleSheet.create({
   add: {
-    color: "#ffffff",
+    color: "#FFFFFF",
     fontSize: 18,
     fontWeight: "bold",
     textAlign: "center",

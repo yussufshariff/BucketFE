@@ -18,8 +18,7 @@ const LocationCard = ({ selectedLocation }) => {
   const [locationData, setLocationData] = useState(null);
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
-  const [addRed, setAddRed] = useState({});
-  const [addGreen, setAddGreen] = useState({ ...styles.place });
+  const [addColour, setAddColour] = useState({ ...styles.place });
 
   const navigation = useNavigation();
 
@@ -31,25 +30,18 @@ const LocationCard = ({ selectedLocation }) => {
     setLocationData(null);
     setAddedLocation(null);
     setRemovedLocation(null);
-    setAddGreen({
-      ...styles.place,
-      color: "#FFFFFF",
-    });
+    setAddColour({ ...styles.place, color: "#FFFFFF" });
   };
   const onPressAdd = () => {
-    setAddedLocation(locationData.display_name);
     setRemovedLocation(null);
-    setAddGreen({ ...styles.place, color: "#00FF00" });
+    setAddedLocation(locationData.display_name);
+    setAddColour({ ...styles.place, color: "#00FF00" });
   };
 
   const onPressRemove = () => {
     setAddedLocation(null);
-    setAddGreen({
-      ...styles.place,
-      color: "#FF0000",
-    });
     setRemovedLocation(locationData.display_name);
-    setAddRed({ ...styles.place, color: "#FF0000" });
+    setAddColour({ ...styles.place, color: "#FF0000" });
   };
 
   useEffect(() => {
@@ -76,7 +68,7 @@ const LocationCard = ({ selectedLocation }) => {
     <View style={styles.modal}>
       <ScrollView>
         <View style={styles.card}>
-          <Text style={addGreen}>{locationData.display_name}</Text>
+          <Text style={addColour}>{locationData.display_name}</Text>
           <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
           <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
           <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />

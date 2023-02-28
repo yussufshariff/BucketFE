@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from "react";
-import { TextInput, StyleSheet, View, Alert } from "react-native";
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  Alert,
+  Touchable,
+  TouchableOpacity,
+} from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
@@ -139,14 +146,16 @@ const AddLocation = () => {
           <CustomMarkerColo />
         </Marker>
         {/* Petra*/}
-        <Marker
-          coordinate={{
-            latitude: 30.32879655,
-            longitude: 35.44234710984083,
-          }}
-        >
-          <CustomMarkerPetra />
-        </Marker>
+        <TouchableOpacity>
+          <Marker
+            coordinate={{
+              latitude: 30.32879655,
+              longitude: 35.44234710984083,
+            }}
+          >
+            <CustomMarkerPetra />
+          </Marker>
+        </TouchableOpacity>
         {/* Chichen Itza */}
         <Marker
           coordinate={{
