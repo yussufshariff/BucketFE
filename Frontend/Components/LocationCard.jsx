@@ -1,5 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
@@ -14,10 +20,7 @@ const LocationCard = ({ selectedLocation }) => {
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
   const [addRed, setAddRed] = useState({});
-  const [addGreen, setAddGreen] = useState({
-    ...styles.place,
-    color: "#FFFFFF",
-  });
+  const [addGreen, setAddGreen] = useState({ ...styles.place });
 
   const navigation = useNavigation();
 
@@ -72,6 +75,7 @@ const LocationCard = ({ selectedLocation }) => {
   }
   return (
     <View style={styles.modal}>
+      <ScrollView>
       <View style={styles.card}>
         <Text style={addGreen}>{locationData.display_name}</Text>
         <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
@@ -111,7 +115,8 @@ const LocationCard = ({ selectedLocation }) => {
         >
           <Text>Read More</Text>
         </TouchableOpacity>
-      </View>
+      </View>       
+      </ScrollView>
     </View>
   );
 };
@@ -119,7 +124,7 @@ const LocationCard = ({ selectedLocation }) => {
 const styles = StyleSheet.create({
   modal: {
     position: "absolute",
-    top: 0,
+    top: 75,
     left: 0,
     right: 0,
     bottom: 0,
