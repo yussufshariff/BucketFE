@@ -10,8 +10,14 @@ export const getAllLocations = () => {
   });
 };
 
+export const getListByUser = (username) => {
+  return request.get(`/users/${username}/list`).then((response) => {
+    return response;
+  });
+};
+
 export const postNewUser = async (newUser) => {
   return request.post("/users", newUser).then(( response ) => {
     return response.data.newUser;
-  })
-}
+  });
+};
