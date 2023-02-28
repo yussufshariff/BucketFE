@@ -18,8 +18,6 @@ export default function App() {
   const [settingUser, setSettingUser] = useState({});
   const [settingLocation, setSettingLocation] = useState({});
 
-setSettingUser({})
-
   const userSettings = {
     bucket_list: [],
     _id: settingUser.id,
