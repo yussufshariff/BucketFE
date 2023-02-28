@@ -7,6 +7,7 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
+
 import { React, useState, useContext, useEffect } from "react";
 import UserContext from "../Contexts/userContext";
 import { getListByUser } from "../Utils/api";
@@ -20,14 +21,6 @@ const UserDetails = () => {
       setUserList(data.userList)
     })
   }, [])
-
-
-  const [images, setImages] = useState([
-    "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg",
-    "https://upload.wikimedia.org/wikipedia/commons/thumb/d/de/Colosseo_2020.jpg/1200px-Colosseo_2020.jpg",
-    "https://media.istockphoto.com/id/1077250290/es/foto/pirámides.jpg?s=612x612&w=0&k=20&c=nxF4cIb0fXi2J6RvllZTCVvIBfDimxZkvSyv70yAU5c=",
-    "https://media.istockphoto.com/photos/view-of-machu-picchu-as-seen-from-the-inca-trail-picture-id832447662?b=1&k=20&m=832447662&s=612x612&w=0&h=BVWOArRQbDaq8HUWfVwVT6TCQq0ViluBZbmSCju7cJc=",
-  ]);
 
   const locationNames = userList.map((location) => {
     return location.name

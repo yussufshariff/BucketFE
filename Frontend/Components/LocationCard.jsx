@@ -1,10 +1,16 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Button } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
 
-import { useContext } from 'react'
+import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
 
 const LocationCard = ({ selectedLocation }) => {
@@ -13,10 +19,7 @@ const LocationCard = ({ selectedLocation }) => {
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
   const [addRed, setAddRed] = useState({});
-  const [addGreen, setAddGreen] = useState({
-    ...styles.place,
-    color: "#FFFFFF",
-  });
+  const [addGreen, setAddGreen] = useState({ ...styles.place });
 
   const navigation = useNavigation();
 
@@ -69,41 +72,42 @@ const LocationCard = ({ selectedLocation }) => {
   if (!selectedLocation || !locationData) {
     return null;
   }
-
   return (
     <View style={styles.modal}>
-      <View style={styles.card}>
-        <Text style={styles.place}>{locationData.display_name}</Text>
-        <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
-        <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
-        <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
-        {addedLocation && (
-          <Text style={styles.addedLocation}>
-            {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
-            added to your list
-          </Text>
-        )}
-        <RemoveFromBucket
-          locationData={locationData}
-          onPressRemove={onPressRemove}
-        />
-        {removedLocation && (
-          <Text style={styles.removedLocation}>
-            {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
-            removed from your list
-          </Text>
-        )}
-        <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
-          <Text>Close</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.closeButton}
-          title="Create new User"
-          onPress={() => navigation.navigate("LocationDetails")}
-        >
-          <Text>Read More</Text>
-        </TouchableOpacity>
-      </View>
+      <ScrollView>
+        <View style={styles.card}>
+          <Text style={addGreen}>{locationData.display_name}</Text>
+          <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
+          <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
+          <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
+          {addedLocation && (
+            <Text style={styles.addedLocation}>
+              {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
+              ADDED to your list
+            </Text>
+          )}
+          <RemoveFromBucket
+            locationData={locationData}
+            onPressRemove={onPressRemove}
+          />
+          {removedLocation && (
+            <Text style={styles.removedLocation}>
+              {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
+              REMOVED from your list
+            </Text>
+          )}
+          <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
+            <Text>Close</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.closeButton}
+            title="Create new User"
+            onPress={() => navigation.navigate("LocationDetails")}
+          >
+            <Text>Read More</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
     </View>
   );
 };
@@ -111,7 +115,7 @@ const LocationCard = ({ selectedLocation }) => {
 const styles = StyleSheet.create({
   modal: {
     position: "absolute",
-    top: 0,
+    top: 75,
     left: 0,
     right: 0,
     bottom: 0,
@@ -124,7 +128,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   place: {
-    color: "#FF0000",
+    color: "#FFFFFF",
     fontSize: 24,
     fontWeight: "bold",
     marginBottom: 10,
