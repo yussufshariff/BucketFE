@@ -23,14 +23,20 @@ const NewUserForm = ({ navigation }) => {
     }
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log(username, email, password);
         const newUser = {username: username, email: email, password: password}
 
         postNewUser(newUser).then((data) => {
             myContext.setSettingUser(data)
+            if (data === "User already exists") {
+                alert("User already exists");
+            } else { 
+                if (myContext.username === undefined || myContext.email === undefined || myContext.password === undefined) {
+                    alert("Please fill in all fields");
+                } else { 
             navigation.navigate('AddLocation');
-        })
-
+        }
+    }
+        }) 
     }
 
     return (

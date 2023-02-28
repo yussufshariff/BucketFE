@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
+import LocationDetails from "./LocationDetails";
 
 const LocationCard = ({ selectedLocation }) => {
   const loggedInUser = useContext(UserContext);
@@ -68,10 +69,13 @@ const LocationCard = ({ selectedLocation }) => {
     <View style={styles.modal}>
       <ScrollView>
         <View style={styles.card}>
-          <Text style={addColour}>{locationData.display_name}</Text>
+          <Text style={addGreen}>{locationData.display_name}</Text>
           <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
           <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
-          <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
+          <AddToBucket
+            locationData={locationData}
+            setAddedLocation={setAddedLocation}
+          />
           {addedLocation && (
             <Text style={styles.addedLocation}>
               {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
@@ -91,10 +95,15 @@ const LocationCard = ({ selectedLocation }) => {
           <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
             <Text>Close</Text>
           </TouchableOpacity>
+
           <TouchableOpacity
             style={styles.closeButton}
             title="Create new User"
-            onPress={() => navigation.navigate("LocationDetails")}
+            onPress={() =>
+              navigation.navigate("LocationDetails", {
+                locationData: locationData,
+              })
+            }
           >
             <Text>Read More</Text>
           </TouchableOpacity>

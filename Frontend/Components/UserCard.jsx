@@ -4,11 +4,9 @@ import { useNavigation } from "@react-navigation/native";
 import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
 
-const UserCard = (userSettings) => {
+const UserCard = () => {
   const loggedInUser = useContext(UserContext);
   const navigation = useNavigation();
-
-  console.log(userSettings);
 
   const handleProfilePress = () => {
     navigation.navigate("UserDetails");
