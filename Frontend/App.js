@@ -9,12 +9,12 @@ import CarouselCards from "./Components/CarouselCards";
 import NewUserForm from "./Components/NewUserForm";
 import { StyleSheet } from "react-native";
 import UserContext from "./Contexts/userContext";
+import LocationDetails from "./Components/LocationDetails";
 
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
-  const [settingUser, setSettingUser] = useState({})
+  const [settingUser, setSettingUser] = useState({});
 
   const userSettings = {
     bucket_list: [],
@@ -23,7 +23,7 @@ export default function App() {
     email: settingUser.email,
     password: settingUser.password,
     profile_picture: settingUser.profile_picture,
-    setSettingUser
+    setSettingUser,
   };
 
   return (
@@ -48,13 +48,13 @@ export default function App() {
           <Stack.Screen
             styles={styles.container}
             name="LocationDetails"
-            component={CarouselCards}
+            component={LocationDetails}
             options={{ title: "Location Details" }}
           />
           <Stack.Screen
-          name="NewUserForm"
-          component={NewUserForm}
-          options={{ title: "Create New User" }}
+            name="NewUserForm"
+            component={NewUserForm}
+            options={{ title: "Create New User" }}
           />
         </Stack.Navigator>
         <UserCard />

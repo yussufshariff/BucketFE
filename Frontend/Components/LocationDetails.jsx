@@ -1,18 +1,37 @@
-// import { Dimensions, Text, View, StyleSheet } from "react-native";
-// import Carousel from "react-native-reanimated-carousel";
+import {
+  Dimensions,
+  Text,
+  View,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
 
-// function LocationDetails() {
-//   const width = Dimensions.get("window").width;
-//   return <Text style={styles.title}>Pyramids of Giza</Text>;
-// }
+import { useNavigation } from "@react-navigation/native";
 
-// const styles = StyleSheet.create({
-//   title: {
-//     paddingTop: 10,
-//     fontWeight: "bold",
-//     textAlign: "center",
-//     fontSize: 25,
-//   },
-// });
+function LocationDetails({ locationData }) {
+  console.log(locationData);
+  const navigation = useNavigation();
+  return (
+    <TouchableOpacity
+      style={styles.add}
+      onPress={() => navigation.navigate("LocationDetails")}
+    >
+      <Text>Read More</Text>
+    </TouchableOpacity>
+  );
+}
 
-// export default LocationDetails;
+const styles = StyleSheet.create({
+  add: {
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold",
+    textAlign: "center",
+    padding: 10,
+    backgroundColor: "#444444",
+    borderRadius: 10,
+    marginTop: 20,
+  },
+});
+
+export default LocationDetails;

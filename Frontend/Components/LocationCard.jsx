@@ -6,6 +6,7 @@ import { useNavigation } from "@react-navigation/native";
 
 import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
+import LocationDetails from "./LocationDetails";
 
 const LocationCard = ({ selectedLocation }) => {
   const loggedInUser = useContext(UserContext);
@@ -98,13 +99,7 @@ const LocationCard = ({ selectedLocation }) => {
         <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
           <Text>Close</Text>
         </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.closeButton}
-          title="Create new User"
-          onPress={() => navigation.navigate("LocationDetails")}
-        >
-          <Text>Read More</Text>
-        </TouchableOpacity>
+        <LocationDetails locationData={locationData} title="Read More" />
       </View>
     </View>
   );
