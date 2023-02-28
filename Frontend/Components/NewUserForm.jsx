@@ -27,10 +27,15 @@ const NewUserForm = ({ navigation }) => {
         const newUser = {username: username, email: email, password: password}
 
         postNewUser(newUser).then((data) => {
+            console.log(data, "<<< data")
+            console.log(email, "<<< email")
+            if (data.newUser === "User already exists") {
+                alert("User already exists");
+            } else 
             myContext.setSettingUser(data)
+            console.log(myContext)
             navigation.navigate('AddLocation');
-        })
-
+        }) 
     }
 
     return (
