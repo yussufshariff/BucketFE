@@ -99,7 +99,18 @@ const LocationCard = ({ selectedLocation }) => {
         <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
           <Text>Close</Text>
         </TouchableOpacity>
-        <LocationDetails locationData={locationData} title="Read More" />
+
+        <TouchableOpacity
+          style={styles.closeButton}
+          title="Create new User"
+          onPress={() =>
+            navigation.navigate("LocationDetails", {
+              locationData: locationData,
+            })
+          }
+        >
+          <Text>Read More</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );

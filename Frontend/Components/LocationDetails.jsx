@@ -1,36 +1,22 @@
-import {
-  Dimensions,
-  Text,
-  View,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { Dimensions, Text, View, StyleSheet } from "react-native";
 
-import { useNavigation } from "@react-navigation/native";
+function LocationDetails({ route }) {
+  const { locationData } = route.params;
 
-function LocationDetails({ locationData }) {
-  console.log(locationData);
-  const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      style={styles.add}
-      onPress={() => navigation.navigate("LocationDetails")}
-    >
-      <Text>Read More</Text>
-    </TouchableOpacity>
+    <View>
+      <Text style={styles.title}>
+        {locationData.display_name.replace(/,.*/, "")}
+      </Text>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  add: {
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold",
+  title: {
     textAlign: "center",
+    fontSize: 25,
     padding: 10,
-    backgroundColor: "#444444",
-    borderRadius: 10,
-    marginTop: 20,
   },
 });
 
