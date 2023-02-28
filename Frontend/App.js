@@ -9,12 +9,14 @@ import CarouselCards from "./Components/CarouselCards";
 import NewUserForm from "./Components/NewUserForm";
 import { StyleSheet } from "react-native";
 import UserContext from "./Contexts/userContext";
+import LocationContext from "./Contexts/locationContext";
 import LocationDetails from "./Components/LocationDetails";
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [settingUser, setSettingUser] = useState({});
+  const [settingLocation, setSettingLocation] = useState({});
 
   const userSettings = {
     bucket_list: [],
@@ -26,40 +28,49 @@ export default function App() {
     setSettingUser,
   };
 
+  const locationSetting = {
+    _id: settingLocation.id,
+    name: settingLocation.name,
+    coordinates: settingLocation.coordinates,
+    setSettingLocation,
+  };
+
   return (
-    <UserContext.Provider value={userSettings}>
-      <NavigationContainer>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Home"
-            component={HomePage}
-            options={{ title: "Welcome" }}
-          />
-          <Stack.Screen
-            name="AddLocation"
-            component={AddLocation}
-            options={{ title: "Add A Location" }}
-          />
-          <Stack.Screen
-            name="UserDetails"
-            component={UserDetails}
-            options={{ title: "User Profile" }}
-          />
-          <Stack.Screen
-            styles={styles.container}
-            name="LocationDetails"
-            component={LocationDetails}
-            options={{ title: "Location Details" }}
-          />
-          <Stack.Screen
-            name="NewUserForm"
-            component={NewUserForm}
-            options={{ title: "Create New User" }}
-          />
-        </Stack.Navigator>
-        <UserCard />
-      </NavigationContainer>
-    </UserContext.Provider>
+    <LocationContext.Provider value={locationSetting}>
+      <UserContext.Provider value={userSettings}>
+        <NavigationContainer>
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={HomePage}
+              options={{ title: "Welcome" }}
+            />
+            <Stack.Screen
+              name="AddLocation"
+              component={AddLocation}
+              options={{ title: "Add A Location" }}
+            />
+            <Stack.Screen
+              name="UserDetails"
+              component={UserDetails}
+              options={{ title: "User Profile" }}
+            />
+            <Stack.Screen
+              styles={styles.container}
+              name="LocationDetails"
+              component={LocationDetails}
+              options={{ title: "Location Details" }}
+            />
+            <Stack.Screen
+              name="NewUserForm"
+              component={NewUserForm}
+              options={{ title: "Create New User" }}
+            />
+          </Stack.Navigator>
+          <UserCard />
+        </NavigationContainer>
+      </UserContext.Provider>
+    </LocationContext.Provider>
   );
 }
 
