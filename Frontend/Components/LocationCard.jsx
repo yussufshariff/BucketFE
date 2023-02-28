@@ -69,10 +69,11 @@ const LocationCard = ({ selectedLocation }) => {
     <View style={styles.modal}>
       <ScrollView>
         <View style={styles.card}>
-          <Text style={addGreen}>{locationData.display_name}</Text>
+          <Text style={addColour}>{locationData.display_name}</Text>
           <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
           <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
           <AddToBucket
+            onPress={onPressAdd}
             locationData={locationData}
             setAddedLocation={setAddedLocation}
           />

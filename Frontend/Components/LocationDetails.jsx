@@ -1,4 +1,4 @@
-import { Text, View, StyleSheet } from "react-native";
+import { Text, View, StyleSheet, Alert } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import UserContext from "../Contexts/userContext";
 import axios from "axios";
@@ -25,17 +25,59 @@ function LocationDetails({ route }) {
         );
       } catch {}
     };
+    const handleNewComment = () => {
+      Alert.prompt(
+        "Add Comment",
+        "Enter your comment",
+        [
+          {
+            text: "Cancel",
+            style: "cancel",
+          },
+          {
+            text: "OK",
+            onPress: (input) => {
+              const postBody = {
+                locationId: location.data.location[0]._id,
+                userId: loggedInUser._id,
+                body: "kebab",
+                images: "kebab",
+              };
+              return axios.post(
+                `https://red-muddy-woodpecker.cyclic.app/api/comments`,
+                postBody
+              );
+            },
+          },
+        ],
+        "plain-text"
+      );
+    };
+
     getComments()
       .then(() => {
         if (location === null) {
           alert("Location not in DB ");
+        } else if (comments === null) {
+          Alert.alert(
+            "Comments not found",
+            "Be the first to comment",
+            [
+              {
+                text: "Cancel",
+                onPress: () => console.log("Cancel Pressed"),
+                style: "cancel",
+              },
+              {
+                text: "Add Comment",
+                onPress: () => handleNewComment(),
+              },
+            ],
+            { cancelable: false }
+          );
         } else {
-          if (comments === null) {
-            alert("Comments not found be the first to comment");
-          } else {
-            console.log(comments.data);
-            setlocationComments(comments.data.comments[0]);
-          }
+          console.log(comments.data);
+          setlocationComments(comments.data.comments[0]);
         }
       })
       .catch(console.error);
