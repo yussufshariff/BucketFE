@@ -9,3 +9,9 @@ export const getAllLocations = () => {
     return locations;
   });
 };
+
+export const getListByUser = (username) => {
+  return request.get(`/users/${username}/list`).then((response) => {
+    return response;
+  })
+}

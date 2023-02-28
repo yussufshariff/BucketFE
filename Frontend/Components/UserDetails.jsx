@@ -1,4 +1,3 @@
-import React from "react";
 import {
   View,
   StyleSheet,
@@ -8,12 +7,20 @@ import {
   StatusBar,
   FlatList,
 } from "react-native";
-import { useState } from "react";
-import { useContext } from "react";
+import { React, useState, useContext, useEffect } from "react";
 import UserContext from "../Contexts/userContext";
+import { getListByUser } from "../Utils/api";
 
 const UserDetails = () => {
   const loggedInUser = useContext(UserContext);
+  const [userList, setUserList] = useState([]);
+
+  useEffect(() => {
+    getListByUser(loggedInUser.username).then(({ data }) => {
+      setUserList(data.userList)
+    })
+  }, [])
+
 
   const [images, setImages] = useState([
     "https://whc.unesco.org/uploads/thumbs/site_0252_0008-750-750-20151104113424.jpg",
@@ -21,7 +28,16 @@ const UserDetails = () => {
     "https://media.istockphoto.com/id/1077250290/es/foto/pirámides.jpg?s=612x612&w=0&k=20&c=nxF4cIb0fXi2J6RvllZTCVvIBfDimxZkvSyv70yAU5c=",
     "https://media.istockphoto.com/photos/view-of-machu-picchu-as-seen-from-the-inca-trail-picture-id832447662?b=1&k=20&m=832447662&s=612x612&w=0&h=BVWOArRQbDaq8HUWfVwVT6TCQq0ViluBZbmSCju7cJc=",
   ]);
-  const DATA = ["Rome", "London", "Madrid", "Paris"];
+
+  const locationNames = userList.map((location) => {
+    return location.name
+  })
+
+  function locationNameFormatter(location) {
+    const splitLocation = location.split(',')
+    return splitLocation[0]  + "," + splitLocation.slice(-1)
+  }
+
   return (
     <ScrollView style={styles.container}>
       <View style={styles.header}>
@@ -32,27 +48,17 @@ const UserDetails = () => {
               uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzuMcdJhJZHRE-tbIGP-Vzn6CQiMS35Vu2Ow&usqp=CAU",
             }}
           />
-          <Text style={styles.name}> John Doe</Text>
+          <Text style={styles.name}>{loggedInUser.username}</Text>
         </View>
       </View>
       <View style={styles.contanier_style}>
         <Text style={styles.header_style}>Bucket List</Text>
         <FlatList
-          data={DATA}
+          data={locationNames}
           renderItem={({ item }) => (
-            <Text style={styles.item_style}>{item}</Text>
+            <Text style={styles.item_style}>{locationNameFormatter(item)}</Text>
           )}
         />
-      </View>
-      <View>
-        <Text style={styles.header_style}> My Buckets</Text>
-        <ScrollView contentContainerStyle={styles.body}>
-          {images.map((image) => (
-            <View style={styles.imageContainer}>
-              <Image style={styles.image} source={{ uri: image }} />
-            </View>
-          ))}
-        </ScrollView>
       </View>
     </ScrollView>
   );
