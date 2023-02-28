@@ -10,8 +10,8 @@ export const getAllLocations = () => {
   });
 };
 
-export const postNewUser = (newUser) => {
-  return request.post("/users", newUser).then(( data ) => {
-    return data.data
+export const postNewUser = async (newUser) => {
+  return request.post("/users", newUser).then(( response ) => {
+    return response.data.newUser;
   })
 }
