@@ -19,10 +19,7 @@ const LocationCard = ({ selectedLocation }) => {
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
   const [addRed, setAddRed] = useState({});
-  const [addGreen, setAddGreen] = useState({
-    ...styles.place,
-    color: "#FFFFFF",
-  });
+  const [addGreen, setAddGreen] = useState({ ...styles.place });
 
   const navigation = useNavigation();
 
@@ -77,7 +74,6 @@ const LocationCard = ({ selectedLocation }) => {
   }
   return (
     <View style={styles.modal}>
-
       <ScrollView>
         <View style={styles.card}>
           <Text style={addGreen}>{locationData.display_name}</Text>
@@ -112,44 +108,7 @@ const LocationCard = ({ selectedLocation }) => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <View style={styles.card}>
-        <Text style={addGreen}>{locationData.display_name}</Text>
-        <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
-        <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
-        <AddToBucket
-          locationData={locationData}
-          setAddedLocation={setAddedLocation}
-        />
-        {addedLocation && (
-          <Text style={styles.addedLocation}>
-            {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
-            ADDED to your list
-          </Text>
-        )}
-        <RemoveFromBucket
-          locationData={locationData}
-          onPressRemove={onPressRemove}
-        />
-        {removedLocation && (
-          <Text style={styles.removedLocation}>
-            {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
-            REMOVED from your list
-          </Text>
-        )}
-        <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
-          <Text>Close</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.closeButton}
-          title="Create new User"
-          onPress={() => navigation.navigate("LocationDetails")}
-        >
-          <Text>Read More</Text>
-        </TouchableOpacity>
-      </View>
-
- </View>
+    </View>
   );
 };
 
