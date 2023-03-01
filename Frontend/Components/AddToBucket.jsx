@@ -1,8 +1,9 @@
-import React from "react";
-import { Text, TouchableOpacity, StyleSheet } from "react-native";
-import { useContext } from "react";
-import UserContext from "../Contexts/userContext";
-import axios from "axios";
+import React from 'react';
+import { Text, TouchableOpacity, StyleSheet } from 'react-native';
+import { useContext } from 'react';
+import UserContext from '../Contexts/userContext';
+import axios from 'axios';
+import { postNewLocation } from '../Utils/api';
 
 const AddToBucket = ({ locationData, setAddedLocation }) => {
   const loggedInUser = useContext(UserContext);
@@ -11,18 +12,14 @@ const AddToBucket = ({ locationData, setAddedLocation }) => {
   const handleNewLocation = (e) => {
     const postBody = {
       name: locationData.display_name,
-      coordinates: locationData.lon,
+      coordinates: [`${locationData.lon}`, `${locationData.lat}`],
     };
-    return axios.post(
-      `https://red-muddy-woodpecker.cyclic.app/api/locations`,
-      postBody
-    );
+    postNewLocation(postBody);
   };
 
   const handleSubmit = (e) => {
     const patchBody = {
       name: locationData.display_name,
-      coordinates: locationData.lon,
     };
     setAddedLocation(locationData.display_name);
     return axios.patch(
@@ -34,10 +31,12 @@ const AddToBucket = ({ locationData, setAddedLocation }) => {
   return (
     <TouchableOpacity
       style={styles.add}
-      onPress={() => {
-        handleNewLocation().then(() => {
+      onPress={async () => {
+        try {
+          handleNewLocation();
+        } finally {
           handleSubmit();
-        });
+        }
       }}
     >
       <Text>Add To Your Bucket List</Text>
@@ -46,12 +45,12 @@ const AddToBucket = ({ locationData, setAddedLocation }) => {
 };
 const styles = StyleSheet.create({
   add: {
-    color: "#ffffff",
+    color: '#FFFFFF',
     fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
+    fontWeight: 'bold',
+    textAlign: 'center',
     padding: 10,
-    backgroundColor: "#444444",
+    backgroundColor: '#444444',
     borderRadius: 10,
     marginTop: 20,
   },

@@ -53,64 +53,6 @@ function CustomMarkerCI() {
 }
 //styles for our custom marker.
 const styles = StyleSheet.create({
-  // marker: {
-  //   paddingVertical: 2,
-  //   paddingHorizontal: 4,
-  //   backgroundColor: "#007bff",
-  //   borderColor: "#eee",
-  //   borderRadius: 10,
-  //   elevation: 5,
-  // },
-  text: {
-    color: "#fff",
-  },
-  modal: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    zIndex: 999,
-  },
-  card: {
-    backgroundColor: "#000000",
-    borderRadius: 10,
-    padding: 20,
-    marginBottom: 20,
-  },
-  place: {
-    color: "#FFFFFF",
-    fontSize: 24,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  coords: {
-    color: "#ffffff",
-    fontSize: 18,
-    marginBottom: 10,
-  },
-  closeButton: {
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold",
-    textAlign: "center",
-    padding: 10,
-    backgroundColor: "#444444",
-    borderRadius: 10,
-    marginTop: 20,
-  },
-  addedLocation: {
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
-  removedLocation: {
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
   button: {
     color: "#ffffff",
     fontSize: 7,

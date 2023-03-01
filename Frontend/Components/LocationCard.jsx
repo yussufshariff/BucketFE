@@ -17,8 +17,7 @@ const LocationCard = ({ selectedLocation }) => {
   const [locationData, setLocationData] = useState(null);
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
-  const [addRed, setAddRed] = useState({});
-  const [addGreen, setAddGreen] = useState({ ...styles.place });
+  const [addColour, setAddColour] = useState({ ...styles.place });
 
   const navigation = useNavigation();
 
@@ -30,25 +29,18 @@ const LocationCard = ({ selectedLocation }) => {
     setLocationData(null);
     setAddedLocation(null);
     setRemovedLocation(null);
-    setAddGreen({
-      ...styles.place,
-      color: "#FFFFFF",
-    });
+    setAddColour({ ...styles.place, color: "#FFFFFF" });
   };
   const onPressAdd = () => {
-    setAddedLocation(locationData.display_name);
     setRemovedLocation(null);
-    setAddGreen({ ...styles.place, color: "#00FF00" });
+    setAddedLocation(locationData.display_name);
+    setAddColour({ ...styles.place, color: "#00FF00" });
   };
 
   const onPressRemove = () => {
     setAddedLocation(null);
-    setAddGreen({
-      ...styles.place,
-      color: "#FF0000",
-    });
     setRemovedLocation(locationData.display_name);
-    setAddRed({ ...styles.place, color: "#FF0000" });
+    setAddColour({ ...styles.place, color: "#FF0000" });
   };
 
   useEffect(() => {
@@ -74,46 +66,47 @@ const LocationCard = ({ selectedLocation }) => {
   return (
     <View style={styles.modal}>
       <ScrollView>
-      <View style={styles.card}>
-        <Text style={addGreen}>{locationData.display_name}</Text>
-        <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
-        <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
-        <AddToBucket
-          locationData={locationData}
-          setAddedLocation={setAddedLocation}
-        />
-        {addedLocation && (
-          <Text style={styles.addedLocation}>
-            {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
-            ADDED to your list
-          </Text>
-        )}
-        <RemoveFromBucket
-          locationData={locationData}
-          onPressRemove={onPressRemove}
-        />
-        {removedLocation && (
-          <Text style={styles.removedLocation}>
-            {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
-            REMOVED from your list
-          </Text>
-        )}
-        <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
-          <Text>Close</Text>
-        </TouchableOpacity>
+        <View style={styles.card}>
+          <Text style={addColour}>{locationData.display_name}</Text>
+          <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
+          <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
+          <AddToBucket
+            onPress={onPressAdd}
+            locationData={locationData}
+            setAddedLocation={setAddedLocation}
+          />
+          {addedLocation && (
+            <Text style={styles.addedLocation}>
+              {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
+              ADDED to your list
+            </Text>
+          )}
+          <RemoveFromBucket
+            locationData={locationData}
+            onPressRemove={onPressRemove}
+          />
+          {removedLocation && (
+            <Text style={styles.removedLocation}>
+              {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
+              REMOVED from your list
+            </Text>
+          )}
+          <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
+            <Text>Close</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={styles.closeButton}
-          title="Create new User"
-          onPress={() =>
-            navigation.navigate("LocationDetails", {
-              locationData: locationData,
-            })
-          }
-        >
-          <Text>Read More</Text>
-        </TouchableOpacity>
-      </View>       
+          <TouchableOpacity
+            style={styles.closeButton}
+            title="Create new User"
+            onPress={() =>
+              navigation.navigate("LocationDetails", {
+                locationData: locationData,
+              })
+            }
+          >
+            <Text>Read More</Text>
+          </TouchableOpacity>
+        </View>
       </ScrollView>
     </View>
   );
