@@ -1,23 +1,29 @@
-import React from "react";
-import { View, Text, TouchableOpacity, StyleSheet, Image } from "react-native";
+import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useContext } from "react";
+import React, { useContext } from "react";
 import UserContext from "../Contexts/userContext";
+import favicon from "../assets/favicon.png"
 
-const UserCard = () => {
+const Nav = (userSettings) => {
   const loggedInUser = useContext(UserContext);
   const navigation = useNavigation();
+  const imageUrl = loggedInUser.profile_picture;
 
   const handleProfilePress = () => {
-    navigation.navigate("UserDetails");
+    navigation.navigate("UserProfile");
   };
 
-  const imageUrl = loggedInUser.profile_picture;
+  const handleListPress = () => {
+    navigation.navigate("UserList");
+  };
 
   return (
     <View style={styles.container}>
       <TouchableOpacity onPress={handleProfilePress}>
         <Image source={{ uri: imageUrl }} style={styles.profilePicture} />
+      </TouchableOpacity>
+      <TouchableOpacity onPress={handleListPress}>
+        <Image source={favicon} style={styles.profilePicture} />
       </TouchableOpacity>
     </View>
   );
@@ -31,12 +37,10 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 24,
-    marginRight: 16,
   },
-  name: {
-    fontSize: 16,
-    fontWeight: "bold",
-  },
+  list: {
+    marginLeft: 50
+  }
 });
 
-export default UserCard;
+export default Nav;
