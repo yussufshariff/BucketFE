@@ -43,6 +43,7 @@ const AddToBucket = ({ locationData, setAddedLocation }) => {
     >
       <Text>Add To Your Bucket List</Text>
     </TouchableOpacity>
+    
   );
 };
 const styles = StyleSheet.create({

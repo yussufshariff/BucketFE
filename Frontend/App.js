@@ -2,23 +2,18 @@ import React, { useState } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomePage from './Components/HomePage';
-import AddLocation from './Components/AddLocation';
-import UserCard from './Components/Nav';
-import UserList from './Components/UserList';
 import NewUserForm from './Components/NewUserForm';
-import { StyleSheet } from 'react-native';
 import UserContext from './Contexts/userContext';
 import LocationContext from './Contexts/locationContext';
 import LocationDetails from './Components/LocationDetails';
-import UserProfile from './Components/UserProfile';
-import { LogBox } from 'react-native';
-LogBox.ignoreAllLogs();
+import Tab from './Components/Tab'
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
   const [settingUser, setSettingUser] = useState({});
   const [settingLocation, setSettingLocation] = useState({});
+  console.disableYellowBox = true;
 
   const userSettings = {
     bucket_list: [],
@@ -30,7 +25,7 @@ export default function App() {
     setSettingUser,
   };
 
-  const locationSetting = {
+  const locationSettings = {
     _id: settingLocation.id,
     name: settingLocation.name,
     coordinates: settingLocation.coordinates,
@@ -38,54 +33,32 @@ export default function App() {
   };
 
   return (
-    <LocationContext.Provider value={locationSetting}>
+    <LocationContext.Provider value={locationSettings}>
       <UserContext.Provider value={userSettings}>
         <NavigationContainer>
-          <Stack.Navigator>
+          <Stack.Navigator screenOptions={{headerShown: false}}>
             <Stack.Screen
               name='Home'
               component={HomePage}
               options={{ title: 'Welcome' }}
             />
-            <Stack.Screen
-              name='AddLocation'
-              component={AddLocation}
-              options={{ title: 'Add A Location' }}
+              <Stack.Screen
+              name="AddLocation"
+              component={Tab}
             />
-            <Stack.Screen
-              name='UserList'
-              component={UserList}
-              options={{ title: 'Bucket List' }}
-            />
-            <Stack.Screen
-              styles={styles.container}
+           <Stack.Screen
               name='LocationDetails'
               component={LocationDetails}
               options={{ title: 'Location Details' }}
             />
-            <Stack.Screen
+          <Stack.Screen
               name='NewUserForm'
               component={NewUserForm}
               options={{ title: 'Create New User' }}
-            />
-            <Stack.Screen
-              name='UserProfile'
-              component={UserProfile}
-              options={{ title: 'Profile' }}
-            />
+            /> 
           </Stack.Navigator>
-          <UserCard />
         </NavigationContainer>
       </UserContext.Provider>
     </LocationContext.Provider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-    padding: 50,
-  },
-});
