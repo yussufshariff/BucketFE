@@ -1,9 +1,8 @@
-import React from "react";
 import { View, Text, StyleSheet } from "react-native";
 import Carousel, { Pagination } from "react-native-snap-carousel";
 import CarouselCardItem, { SLIDER_WIDTH, ITEM_WIDTH } from "./CarouselCardItem";
 import comments from "../data/comments";
-import { useContext } from 'react'
+import React, { useContext } from 'react'
 import UserContext from "../Contexts/userContext";
 
 const CarouselCards = () => {

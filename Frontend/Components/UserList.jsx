@@ -3,16 +3,14 @@ import {
   StyleSheet,
   Text,
   Image,
-  ScrollView,
   StatusBar,
   FlatList,
 } from "react-native";
-
 import { React, useState, useContext, useEffect } from "react";
 import UserContext from "../Contexts/userContext";
 import { getListByUser } from "../Utils/api";
 
-const UserDetails = () => {
+const UserList = () => {
   const loggedInUser = useContext(UserContext);
   const [userList, setUserList] = useState([]);
 
@@ -28,34 +26,34 @@ const UserDetails = () => {
 
   function locationNameFormatter(location) {
     const splitLocation = location.split(',')
-    return splitLocation[0]  + "," + splitLocation.slice(-1)
+    return splitLocation[0] + "," + splitLocation.slice(-1)
+  }
+
+  const imageUrl = loggedInUser.profile_picture;
+
+  const header = () => {
+    return <View style={styles.header_style}>
+      <Image
+        style={styles.avatar}
+        source={{
+          uri: imageUrl
+        }}
+      />
+      <Text style={styles.name}>{loggedInUser.username}</Text>
+    </View>
   }
 
   return (
-    <ScrollView style={styles.container}>
-      <View style={styles.header}>
-        <View style={styles.headerContent}>
-          <Image
-            style={styles.avatar}
-            source={{
-              uri: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSzuMcdJhJZHRE-tbIGP-Vzn6CQiMS35Vu2Ow&usqp=CAU",
-            }}
-          />
-          <Text style={styles.name}>{loggedInUser.username}</Text>
-        </View>
-      </View>
-      <View style={styles.contanier_style}>
-        <Text style={styles.header_style}>Bucket List</Text>
-        <FlatList
-          data={locationNames}
-          renderItem={({ item }) => (
-            <Text style={styles.item_style}>{locationNameFormatter(item)}</Text>
-          )}
-        />
-      </View>
-    </ScrollView>
-  );
-};
+    <FlatList
+      data={locationNames}
+      renderItem={({ item }) => (
+        <Text style={styles.item_style}>{locationNameFormatter(item)}</Text>
+      )}
+      ListHeaderComponent={header}
+    />
+  )
+}
+
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -65,10 +63,6 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 25,
     padding: 10,
-  },
-  header: {
-    backgroundColor: "white",
-    alignItems: "center",
   },
   images: {
     justifyContent: "center",
@@ -91,22 +85,11 @@ const styles = StyleSheet.create({
     fontyWeight: "600",
     alignItems: "center",
   },
-  headerContent: {
-    alignItems: "center",
-  },
   body: {
     alignItems: "center",
     padding: 30,
     flexDirection: "row",
     flexWrap: "wrap",
-  },
-  imageContainer: {
-    width: "33%",
-    padding: 5,
-  },
-  image: {
-    width: "100%",
-    height: 120,
   },
   container_style: {
     flex: 1,
@@ -123,6 +106,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#B2C2D2",
     padding: 20,
     fontSize: 20,
+    alignItems: "center"
   },
 });
-export default UserDetails;
+export default UserList;
