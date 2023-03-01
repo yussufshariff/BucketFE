@@ -10,16 +10,18 @@ const AddToBucket = ({ locationData, setAddedLocation }) => {
   const user = loggedInUser.username;
 
   const handleNewLocation = (e) => {
+    let locationName =  locationData.display_name.split(",")
     const postBody = {
-      name: locationData.display_name,
+      name: locationName[0],
       coordinates: [`${locationData.lon}`, `${locationData.lat}`],
     };
     postNewLocation(postBody);
   };
 
   const handleSubmit = (e) => {
+    let locationName =  locationData.display_name.split(",")
     const patchBody = {
-      name: locationData.display_name,
+      name: locationName[0],
     };
     setAddedLocation(locationData.display_name);
     return axios.patch(
