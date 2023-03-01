@@ -5,7 +5,6 @@ import HomePage from "./Components/HomePage";
 import AddLocation from "./Components/AddLocation";
 import UserCard from "./Components/Nav";
 import UserList from "./Components/UserList";
-import CarouselCards from "./Components/CarouselCards";
 import NewUserForm from "./Components/NewUserForm";
 import { StyleSheet } from "react-native";
 import UserContext from "./Contexts/userContext";
