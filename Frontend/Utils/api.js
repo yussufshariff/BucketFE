@@ -1,11 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
 
 const request = axios.create({
-  baseURL: "https://red-muddy-woodpecker.cyclic.app/api",
+  baseURL: 'https://red-muddy-woodpecker.cyclic.app/api',
 });
 
 export const getAllLocations = () => {
-  return request.get("/locations", {}).then(({ data: { locations } }) => {
+  return request.get('/locations').then(({ data: { locations } }) => {
     return locations;
   });
 };
@@ -17,7 +17,16 @@ export const getListByUser = (username) => {
 };
 
 export const postNewUser = async (newUser) => {
-  return request.post("/users", newUser).then(( response ) => {
+  return request.post('/users', newUser).then((response) => {
     return response.data.newUser;
   });
+};
+
+export const postNewLocation = async (newLocation) => {
+  console.log(newLocation)
+  try {
+    return request.post('/locations', newLocation).then((response) => {
+      return response.data.newLocation;
+    });
+  } catch {}
 };
