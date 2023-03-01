@@ -22,6 +22,10 @@ export const postNewUser = async (newUser) => {
   });
 };
 
+export const patchProfilePic = (user, img) => {
+  return request.patch(`/user/${user}/profilepicture`, {img})
+}
+
 export const postNewLocation = async (newLocation) => {
   console.log(newLocation)
   try {
