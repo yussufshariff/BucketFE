@@ -1,33 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import {
-  TextInput,
-  StyleSheet,
-  View,
-  Alert,
-  Text,
-  Touchable,
-  TouchableOpacity,
-} from 'react-native';
+import { TextInput, StyleSheet, View, Alert} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import LocationCard from './LocationCard';
 import * as Location from 'expo-location';
-import { useContext } from 'react';
-import UserContext from '../Contexts/userContext';
 import { getAllLocations } from '../Utils/api';
 
-
-const {
-  CustomMarkerGWC,
-  CustomMarkerTM,
-  CustomMarkerMP,
-  CustomMarkerCI,
-  CustomMarkerCRS,
-  CustomMarkerColo,
-  CustomMarkerPetra,
-} = require('./CustomMarkers');
 const AddLocation = () => {
-  const loggedInUser = useContext(UserContext);
   const [locations, setLocations] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedLocation, setSelectedLocation] = useState({
@@ -80,9 +58,7 @@ const AddLocation = () => {
   const performSearch = async () => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
-          searchQuery
-        )}&format=json&limit=1`
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`
       );
       const data = await response.json();
       if (data.length > 0) {
@@ -102,6 +78,13 @@ const AddLocation = () => {
       console.error(error);
     }
   };
+  const locationMarkers = locations.map((location) => {
+    return {
+      title: location.name,
+      coordinates: { latitude: location.coordinates[1], longitude: location.coordinates[0] }
+    }
+  })
+
   return (
     <View style={{ flex: 1 }}>
       <MapView
@@ -109,23 +92,13 @@ const AddLocation = () => {
         region={selectedRegion}
         onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
       >
-        <View>
-          {locations.map((location) => {
-            console.log(location)
-            return (
-              <Marker key={location._id}
-                coordinate={{
-                  longitude: Number(location.coordinates[0]),
-                  latitude: Number(location.coordinates[1]),
-                }}
-              >
-                <TouchableOpacity style={styles.button}>
-                  <Text style={styles.button}>{location.name}</Text>
-                </TouchableOpacity>
-              </Marker>
-            );
-          })}
-        </View>
+        {locationMarkers.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={marker.coordinates}
+            title={marker.title}
+          />
+        ))}
       </MapView>
       <View style={{ position: 'absolute', top: 10, width: '100%' }}>
         <TextInput

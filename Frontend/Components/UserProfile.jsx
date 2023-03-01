@@ -30,7 +30,7 @@ export default function UserProfile() {
     <View style={styles.header_style}>
       <Image
         style={styles.avatar}
-        source={{uri: profilePic}}
+        source={{imageUrl}}
       />
       <Button title="Open Camera Roll" onPress={handleProfilePictureUpdate} />
     </View>
