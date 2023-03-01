@@ -21,3 +21,7 @@ export const postNewUser = async (newUser) => {
     return response.data.newUser;
   });
 };
+
+export const patchProfilePic = (user, img) => {
+  return request.patch(`/user/${user}/profilepicture`, {img})
+}
