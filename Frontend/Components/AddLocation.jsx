@@ -1,10 +1,20 @@
-import React, { useState, useEffect } from "react";
-import { TextInput, StyleSheet, View, Alert } from "react-native";
-import MapView, { Marker } from "react-native-maps";
-import LocationCard from "./LocationCard";
-import * as Location from "expo-location";
-import { useContext } from "react";
-import UserContext from "../Contexts/userContext";
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
+import {
+  TextInput,
+  StyleSheet,
+  View,
+  Alert,
+  Text,
+  Touchable,
+  TouchableOpacity,
+} from 'react-native';
+import MapView, { Marker } from 'react-native-maps';
+import LocationCard from './LocationCard';
+import * as Location from 'expo-location';
+import { useContext } from 'react';
+import UserContext from '../Contexts/userContext';
+import { getAllLocations } from '../Utils/api';
 
 
 const {
@@ -15,11 +25,11 @@ const {
   CustomMarkerCRS,
   CustomMarkerColo,
   CustomMarkerPetra,
-} = require("./CustomMarkers");
+} = require('./CustomMarkers');
 const AddLocation = () => {
   const loggedInUser = useContext(UserContext);
-
-  const [searchQuery, setSearchQuery] = useState("");
+  const [locations, setLocations] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
   const [selectedLocation, setSelectedLocation] = useState({
     latitude: 53.47207390660095,
     longitude: -2.238239950240586,
@@ -31,16 +41,22 @@ const AddLocation = () => {
     longitudeDelta: 0.001,
   });
   useEffect(() => {
+    getAllLocations().then((locations) => {
+      setLocations(locations);
+    });
+  }, []);
+
+  useEffect(() => {
     getLocationPermission();
   }, []);
 
   const getLocationPermission = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== "granted") {
+    if (status !== 'granted') {
       Alert.alert(
-        "Permission needed",
-        "This app needs your permission to access your location",
-        [{ text: "OK", onPress: () => getLocationPermission() }]
+        'Permission needed',
+        'This app needs your permission to access your location',
+        [{ text: 'OK', onPress: () => getLocationPermission() }]
       );
     } else {
       getCurrentLocation();
@@ -60,6 +76,7 @@ const AddLocation = () => {
       longitudeDelta: 0.001,
     });
   };
+
   const performSearch = async () => {
     try {
       const response = await fetch(
@@ -85,7 +102,6 @@ const AddLocation = () => {
       console.error(error);
     }
   };
-
   return (
     <View style={{ flex: 1 }}>
       <MapView
@@ -93,85 +109,28 @@ const AddLocation = () => {
         region={selectedRegion}
         onPress={(e) => setSelectedLocation(e.nativeEvent.coordinate)}
       >
-        {/* Machu Picchu */}
-        <Marker
-          coordinate={{
-            latitude: -13.164421950000001,
-            longitude: -72.54508510173372,
-          }}
-        >
-          <CustomMarkerMP />
-        </Marker>
-        {/* Christ the Redeemer */}
-        <Marker
-          coordinate={{
-            latitude: -22.951748034063,
-            longitude: -43.210444286599156,
-          }}
-        >
-          <CustomMarkerCRS />
-        </Marker>
-        {/* Taj Mahal */}
-        <Marker
-          coordinate={{
-            latitude: 27.1753356734283,
-            longitude: 78.04214219812248,
-          }}
-        >
-          <CustomMarkerTM />
-        </Marker>
-        {/* The Great Wall of china */}
-        <Marker
-          coordinate={{
-            latitude: 40.432111842699086,
-            longitude: 116.57038562722992,
-          }}
-        >
-          <CustomMarkerGWC />
-        </Marker>
-
-        {/* Colloseum */}
-        <Marker
-          coordinate={{
-            latitude: 41.89036991543221,
-            longitude: 12.492209440757193,
-          }}
-        >
-          <CustomMarkerColo />
-        </Marker>
-        {/* Petra*/}
-        <Marker
-          coordinate={{
-            latitude: 30.32879655,
-            longitude: 35.44234710984083,
-          }}
-        >
-          <CustomMarkerPetra />
-        </Marker>
-        {/* Chichen Itza */}
-        <Marker
-          coordinate={{
-            latitude: 20.68285195,
-            longitude: -88.5687196355205,
-          }}
-        >
-          <CustomMarkerCI />
-        </Marker>
-        <Marker
-          coordinate={
-            selectedLocation
-              ? {
-                  latitude: selectedLocation.latitude,
-                  longitude: selectedLocation.longitude,
-                }
-              : null
-          }
-        />
+        <View>
+          {locations.map((location) => {
+            console.log(location)
+            return (
+              <Marker key={location._id}
+                coordinate={{
+                  longitude: Number(location.coordinates[0]),
+                  latitude: Number(location.coordinates[1]),
+                }}
+              >
+                <TouchableOpacity style={styles.button}>
+                  <Text style={styles.button}>{location.name}</Text>
+                </TouchableOpacity>
+              </Marker>
+            );
+          })}
+        </View>
       </MapView>
-      <View style={{ position: "absolute", top: 10, width: "100%" }}>
+      <View style={{ position: 'absolute', top: 10, width: '100%' }}>
         <TextInput
           style={styles.searchBar}
-          placeholder="Search..."
+          placeholder='Search...'
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           onSubmitEditing={performSearch}
@@ -186,17 +145,27 @@ const styles = StyleSheet.create({
   searchBar: {
     borderRadius: 10,
     margin: 10,
-    color: "#000",
-    borderColor: "#666",
-    backgroundColor: "#FFF",
+    color: '#000',
+    borderColor: '#666',
+    backgroundColor: '#FFF',
     borderWidth: 1,
     height: 45,
     paddingHorizontal: 10,
     fontSize: 18,
   },
   map: {
-    width: "100%",
-    height: "100%",
+    width: '100%',
+    height: '100%',
+  },
+  button: {
+    color: '#ffffff',
+    fontSize: 7,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    padding: 2,
+    backgroundColor: '#444444',
+    borderRadius: 5,
+    marginTop: 1,
   },
 });
 
