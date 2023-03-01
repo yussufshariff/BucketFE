@@ -2,7 +2,7 @@ import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import React, { useContext } from "react";
 import UserContext from "../Contexts/userContext";
-import favicon from "../assets/favicon.png"
+import bucket from "../assets/bucket.png"
 
 const Nav = (userSettings) => {
   const loggedInUser = useContext(UserContext);
@@ -23,7 +23,7 @@ const Nav = (userSettings) => {
         <Image source={{ uri: imageUrl }} style={styles.profilePicture} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleListPress}>
-        <Image source={favicon} style={styles.profilePicture} />
+        <Image source={bucket} style={styles.profilePicture} />
       </TouchableOpacity>
     </View>
   );
