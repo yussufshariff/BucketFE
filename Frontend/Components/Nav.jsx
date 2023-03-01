@@ -23,7 +23,7 @@ const Nav = (userSettings) => {
         <Image source={{ uri: imageUrl }} style={styles.profilePicture} />
       </TouchableOpacity>
       <TouchableOpacity onPress={handleListPress}>
-        <Image source={favicon} style={styles.profilePicture}/>
+        <Image source={favicon} style={styles.profilePicture} />
       </TouchableOpacity>
     </View>
   );
@@ -37,11 +37,6 @@ const styles = StyleSheet.create({
     width: 35,
     height: 35,
     borderRadius: 24,
-    // marginRight: 16,
-  },
-  name: {
-    // fontSize: 16,
-    // fontWeight: "bold",
   },
   list: {
     marginLeft: 50

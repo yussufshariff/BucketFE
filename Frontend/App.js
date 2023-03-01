@@ -9,13 +9,14 @@ import CarouselCards from "./Components/CarouselCards";
 import NewUserForm from "./Components/NewUserForm";
 import { StyleSheet } from "react-native";
 import UserContext from "./Contexts/userContext";
-import UserProfile from "./Components/UserProfile";
+import LocationContext from "./Contexts/locationContext";
+import LocationDetails from "./Components/LocationDetails";
 
 const Stack = createNativeStackNavigator();
 
-
 export default function App() {
-  const [settingUser, setSettingUser] = useState({})
+  const [settingUser, setSettingUser] = useState({});
+  const [settingLocation, setSettingLocation] = useState({});
 
   const userSettings = {
     bucket_list: [],
@@ -24,10 +25,18 @@ export default function App() {
     email: settingUser.email,
     password: settingUser.password,
     profile_picture: settingUser.profile_picture,
-    setSettingUser
+    setSettingUser,
+  };
+
+  const locationSetting = {
+    _id: settingLocation.id,
+    name: settingLocation.name,
+    coordinates: settingLocation.coordinates,
+    setSettingLocation,
   };
 
   return (
+    <LocationContext.Provider value={locationSetting}>
     <UserContext.Provider value={userSettings}>
       <NavigationContainer>
         <Stack.Navigator>
@@ -49,7 +58,7 @@ export default function App() {
           <Stack.Screen
             styles={styles.container}
             name="LocationDetails"
-            component={CarouselCards}
+            component={LocationDetails}
             options={{ title: "Location Details" }}
           />
           <Stack.Screen
@@ -66,6 +75,7 @@ export default function App() {
         <UserCard />
       </NavigationContainer>
     </UserContext.Provider>
+    </LocationContext.Provider>
   );
 }
 

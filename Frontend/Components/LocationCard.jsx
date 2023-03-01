@@ -10,6 +10,7 @@ import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
 import UserContext from "../Contexts/userContext";
+import LocationDetails from "./LocationDetails";
 
 const LocationCard = ({ selectedLocation }) => {
   const loggedInUser = useContext(UserContext);
@@ -73,38 +74,46 @@ const LocationCard = ({ selectedLocation }) => {
   return (
     <View style={styles.modal}>
       <ScrollView>
-        <View style={styles.card}>
-          <Text style={addGreen}>{locationData.display_name}</Text>
-          <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
-          <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
-          <AddToBucket locationData={locationData} onPressAdd={onPressAdd} />
-          {addedLocation && (
-            <Text style={styles.addedLocation}>
-              {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
-              ADDED to your list
-            </Text>
-          )}
-          <RemoveFromBucket
-            locationData={locationData}
-            onPressRemove={onPressRemove}
-          />
-          {removedLocation && (
-            <Text style={styles.removedLocation}>
-              {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
-              REMOVED from your list
-            </Text>
-          )}
-          <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
-            <Text>Close</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.closeButton}
-            title="Create new User"
-            onPress={() => navigation.navigate("LocationDetails")}
-          >
-            <Text>Read More</Text>
-          </TouchableOpacity>
-        </View>
+      <View style={styles.card}>
+        <Text style={addGreen}>{locationData.display_name}</Text>
+        <Text style={styles.coords}>Longitude: {locationData.lon}</Text>
+        <Text style={styles.coords}>Latitude: {locationData.lat}</Text>
+        <AddToBucket
+          locationData={locationData}
+          setAddedLocation={setAddedLocation}
+        />
+        {addedLocation && (
+          <Text style={styles.addedLocation}>
+            {`"${addedLocation.replace(/,.*/, "")}"`} has successfully been
+            ADDED to your list
+          </Text>
+        )}
+        <RemoveFromBucket
+          locationData={locationData}
+          onPressRemove={onPressRemove}
+        />
+        {removedLocation && (
+          <Text style={styles.removedLocation}>
+            {`"${removedLocation.replace(/,.*/, "")}"`} has successfully been
+            REMOVED from your list
+          </Text>
+        )}
+        <TouchableOpacity style={styles.closeButton} onPress={onPressClose}>
+          <Text>Close</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          style={styles.closeButton}
+          title="Create new User"
+          onPress={() =>
+            navigation.navigate("LocationDetails", {
+              locationData: locationData,
+            })
+          }
+        >
+          <Text>Read More</Text>
+        </TouchableOpacity>
+      </View>       
       </ScrollView>
     </View>
   );
