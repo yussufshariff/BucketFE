@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import {
   View,
   Text,
@@ -9,8 +9,6 @@ import {
 import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
-
-import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
 import LocationDetails from "./LocationDetails";
 

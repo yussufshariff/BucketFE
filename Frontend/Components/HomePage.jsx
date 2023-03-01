@@ -14,7 +14,6 @@ export default HomePage = ({ navigation }) => {
       .then((response) => {
         if (response.data.userData.password === password) {
           myContext.setSettingUser(response.data.userData);
-          console.log(response.data.userData, "<----- userdata");
           navigation.navigate("AddLocation");
         } else return "Incorrent username or password";
       })
@@ -39,6 +38,7 @@ export default HomePage = ({ navigation }) => {
         style={styles.searchBar}
         placeholder="Password"
         value={setPassword}
+        secureTextEntry={true}
         onChangeText={(password) => setPassword(password)}
       />
 

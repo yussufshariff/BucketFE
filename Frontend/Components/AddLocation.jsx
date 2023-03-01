@@ -16,6 +16,7 @@ import { useContext } from 'react';
 import UserContext from '../Contexts/userContext';
 import { getAllLocations } from '../Utils/api';
 
+
 const {
   CustomMarkerGWC,
   CustomMarkerTM,
