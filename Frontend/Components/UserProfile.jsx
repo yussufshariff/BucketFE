@@ -4,7 +4,6 @@ import UserContext from "../Contexts/userContext";
 
 export default function UserProfile() {
     const loggedInUser = useContext(UserContext);
-
     return (
         <View>
             <Image source={loggedInUser.profile_picture} style={styles.profilePicture}></Image>

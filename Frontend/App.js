@@ -10,6 +10,7 @@ import { StyleSheet } from "react-native";
 import UserContext from "./Contexts/userContext";
 import LocationContext from "./Contexts/locationContext";
 import LocationDetails from "./Components/LocationDetails";
+import UserProfile from "./Components/UserProfile";
 
 const Stack = createNativeStackNavigator();
 

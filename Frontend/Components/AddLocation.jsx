@@ -5,7 +5,7 @@ import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
 import { useContext } from "react";
 import UserContext from "../Contexts/userContext";
-import UserCard from "./UserCard";
+
 
 const {
   CustomMarkerGWC,
@@ -178,7 +178,6 @@ const AddLocation = () => {
         />
       </View>
       {selectedLocation && <LocationCard selectedLocation={selectedLocation} />}
-      <UserCard />
     </View>
   );
 };
