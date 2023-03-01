@@ -3,7 +3,6 @@ import { useNavigation } from "@react-navigation/native";
 import React, { useContext } from "react";
 import UserContext from "../Contexts/userContext";
 import favicon from "../assets/favicon.png"
-import { ScreenStackHeaderRightView } from "react-native-screens";
 
 const Nav = (userSettings) => {
   const loggedInUser = useContext(UserContext);
