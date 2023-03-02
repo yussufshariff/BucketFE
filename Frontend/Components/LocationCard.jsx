@@ -10,7 +10,7 @@ import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
 
-const LocationCard = ({ selectedLocation, setLocations, setUsersLocations }) => {
+const LocationCard = ({ selectedLocation, setLocations, locations, setUserLocations, userLocations }) => {
   const [locationData, setLocationData] = useState(null);
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
@@ -67,7 +67,9 @@ const LocationCard = ({ selectedLocation, setLocations, setUsersLocations }) => 
             onPress={onPressAdd}
             locationData={locationData}
             setLocations={setLocations} 
-            setUsersLocations={setUsersLocations}
+            setUserLocations={setUserLocations}
+            locations={locations}
+            userLocations={userLocations}
           />
           {addedLocation && (
             <Text style={styles.addedLocation}>

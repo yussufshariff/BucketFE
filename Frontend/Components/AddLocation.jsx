@@ -19,7 +19,7 @@ const AddLocation = () => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
   });
-  const [usersLocations, setUsersLocations] = useState([])
+  const [userLocations, setUsersLocations] = useState([])
   const loggedInUser = useContext(UserContext);
 
   useEffect(() => {
@@ -113,7 +113,7 @@ const AddLocation = () => {
   }
 
   const locationMarkers = markerListMaker(locations)
-  const userLocationMarkers = markerListMaker(usersLocations)
+  const userLocationMarkers = markerListMaker(userLocations)
 
   return (
     <View style={{ flex: 1 }}>
@@ -146,7 +146,14 @@ const AddLocation = () => {
           onSubmitEditing={performSearch}
         />
       </View>
-      {selectedLocation && <LocationCard selectedLocation={selectedLocation} setLocations={setLocations} setUsersLocations={setUsersLocations}/>}
+      {selectedLocation && 
+      <LocationCard 
+      selectedLocation={selectedLocation}
+      setLocations={setLocations}
+      locations={locations}
+      setUsersLocations={setUsersLocations}
+      userLocations={userLocations}/>
+      }
     </View>
   );
 };
