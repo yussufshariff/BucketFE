@@ -1,13 +1,13 @@
-import React, { useState, useEffect } from 'react';
-import { TextInput, StyleSheet, View, Alert} from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
-import LocationCard from './LocationCard';
-import * as Location from 'expo-location';
-import { getAllLocations } from '../Utils/api';
+import React, { useState, useEffect } from "react";
+import { TextInput, StyleSheet, View, Alert } from "react-native";
+import MapView, { Marker } from "react-native-maps";
+import LocationCard from "./LocationCard";
+import * as Location from "expo-location";
+import { getAllLocations } from "../Utils/api";
 
 const AddLocation = () => {
   const [locations, setLocations] = useState([]);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedLocation, setSelectedLocation] = useState({
     latitude: 53.47207390660095,
     longitude: -2.238239950240586,
@@ -30,11 +30,11 @@ const AddLocation = () => {
 
   const getLocationPermission = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') {
+    if (status !== "granted") {
       Alert.alert(
-        'Permission needed',
-        'This app needs your permission to access your location',
-        [{ text: 'OK', onPress: () => getLocationPermission() }]
+        "Permission needed",
+        "This app needs your permission to access your location",
+        [{ text: "OK", onPress: () => getLocationPermission() }]
       );
     } else {
       getCurrentLocation();
@@ -58,7 +58,9 @@ const AddLocation = () => {
   const performSearch = async () => {
     try {
       const response = await fetch(
-        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(searchQuery)}&format=json&limit=1`
+        `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(
+          searchQuery
+        )}&format=json&limit=1`
       );
       const data = await response.json();
       if (data.length > 0) {
@@ -81,9 +83,12 @@ const AddLocation = () => {
   const locationMarkers = locations.map((location) => {
     return {
       title: location.name,
-      coordinates: { latitude: location.coordinates[1], longitude: location.coordinates[0] }
-    }
-  })
+      coordinates: {
+        latitude: parseFloat(location.coordinates[1]),
+        longitude: parseFloat(location.coordinates[0]),
+      },
+    };
+  });
 
   return (
     <View style={{ flex: 1 }}>
@@ -100,10 +105,10 @@ const AddLocation = () => {
           />
         ))}
       </MapView>
-      <View style={{ position: 'absolute', top: 10, width: '100%' }}>
+      <View style={{ position: "absolute", top: 10, width: "100%" }}>
         <TextInput
           style={styles.searchBar}
-          placeholder='Search...'
+          placeholder="Search..."
           value={searchQuery}
           onChangeText={(text) => setSearchQuery(text)}
           onSubmitEditing={performSearch}
@@ -118,25 +123,25 @@ const styles = StyleSheet.create({
   searchBar: {
     borderRadius: 10,
     margin: 10,
-    color: '#000',
-    borderColor: '#666',
-    backgroundColor: '#FFF',
+    color: "#000",
+    borderColor: "#666",
+    backgroundColor: "#FFF",
     borderWidth: 1,
     height: 45,
     paddingHorizontal: 10,
     fontSize: 18,
   },
   map: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   button: {
-    color: '#ffffff',
+    color: "#ffffff",
     fontSize: 7,
-    fontWeight: 'bold',
-    textAlign: 'center',
+    fontWeight: "bold",
+    textAlign: "center",
     padding: 2,
-    backgroundColor: '#444444',
+    backgroundColor: "#444444",
     borderRadius: 5,
     marginTop: 1,
   },
