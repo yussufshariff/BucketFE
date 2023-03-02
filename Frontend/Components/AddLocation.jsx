@@ -19,7 +19,7 @@ const AddLocation = () => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
   });
-  const [userLocations, setUsersLocations] = useState([])
+  const [userLocations, setUserLocations] = useState([])
   const loggedInUser = useContext(UserContext);
 
   useEffect(() => {
@@ -27,7 +27,7 @@ const AddLocation = () => {
       setLocations(locations);
     }),
     getListByUser(loggedInUser.username).then(({data}) => {
-      setUsersLocations(data.userList)
+      setUserLocations(data.userList)
     })
   }, []);
 
@@ -151,7 +151,7 @@ const AddLocation = () => {
       selectedLocation={selectedLocation}
       setLocations={setLocations}
       locations={locations}
-      setUsersLocations={setUsersLocations}
+      setUserLocations={setUserLocations}
       userLocations={userLocations}/>
       }
     </View>
