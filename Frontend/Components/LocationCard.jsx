@@ -9,7 +9,6 @@ import {
 import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
-import UserContext from "../Contexts/userContext";
 
 const LocationCard = ({ selectedLocation, setLocations, setUsersLocations }) => {
   const [locationData, setLocationData] = useState(null);

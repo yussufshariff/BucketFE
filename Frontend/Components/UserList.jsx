@@ -17,7 +17,7 @@ const UserList = ({ navigation }) => {
   const [userList, setUserList] = useState([]);
   
   useEffect(() => {
-    getListByUser(loggedInUser.username).then(({ data }
+    getListByUser(loggedInUser.username).then(({ data }) =>{
       if(typeof data.userList === 'object')setUserList(data.userList) 
     })
   }, [])
