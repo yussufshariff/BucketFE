@@ -46,7 +46,6 @@ console.log(userList);
       </View>
     );
   };
-
   return (
     <FlatList
       data={locationData}
