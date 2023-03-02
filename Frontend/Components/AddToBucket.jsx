@@ -13,7 +13,7 @@ const AddToBucket = ({ locationData, setLocations, locations, setUserLocations, 
       ).then((response) => {
         const parsedResponse = JSON.parse(response)
         addToBucketList(user, parsedResponse)
-        setUserLocations([...locations, parsedResponse])
+        setUserLocations([...userLocations, parsedResponse])
         setLocations([...locations, parsedResponse])
       })
     }
