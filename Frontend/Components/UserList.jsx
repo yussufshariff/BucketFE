@@ -8,19 +8,22 @@ import {
   Pressable,
   Alert,
 } from 'react-native';
-import { React, useState, useContext, useEffect } from 'react';
+import { React, useState, useContext, useCallback } from 'react';
 import UserContext from '../Contexts/userContext';
 import { getListByUser, deleteFromList, toggleVisited } from '../Utils/api';
+import { useFocusEffect } from '@react-navigation/native';
 
-const UserList = ({ navigation }) => {
+const UserList = () => {
   const loggedInUser = useContext(UserContext);
   const [userList, setUserList] = useState([]);
-  
-  useEffect(() => {
-    getListByUser(loggedInUser.username).then(({ data }) =>{
-      if(typeof data.userList === 'object')setUserList(data.userList) 
-    })
-  }, [])
+
+  useFocusEffect(
+    useCallback(() => {
+      getListByUser(loggedInUser.username).then(({ data }) => {
+        if (typeof data.userList === 'object') setUserList(data.userList)
+        else setUserList([])})
+    }, [])
+  );
 
   const locationData = userList.map((location) => {
     return location;
@@ -48,14 +51,14 @@ const UserList = ({ navigation }) => {
   };
   return (
     <FlatList
-    styles={styles.container}
+      styles={styles.container}
       data={locationData}
       renderItem={({ item }) => (
         <View style={styles.container}>
-        <View style={styles.item_style}> 
-        <Text style={styles.title}>
-          {locationNameFormatter(item)}
-          </Text>
+          <View style={styles.item_style}>
+            <Text style={styles.title}>
+              {locationNameFormatter(item)}
+            </Text>
           </View>
           <Pressable
             style={styles.deleteButton}
@@ -70,7 +73,7 @@ const UserList = ({ navigation }) => {
                   },
                   {
                     text: 'OK',
-                    
+
                     onPress: (input) => {
                       deleteFromList(loggedInUser.username, item.name).then(
                         () => {

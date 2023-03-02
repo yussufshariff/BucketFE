@@ -1,20 +1,21 @@
 import { Image, View, StyleSheet, Button, Text } from 'react-native';
-import React, { useContext, useState, useEffect } from 'react';
+import React, { useContext, useState, useCallback } from 'react';
 import UserContext from "../Contexts/userContext";
 import * as ImagePicker from 'expo-image-picker';
 import { patchProfilePic, getListByUser } from '../Utils/api';
-
+import { useFocusEffect } from '@react-navigation/native';
 
 export default function UserProfile() {
   const loggedInUser = useContext(UserContext);
   const [profilePic, setProfilePic] = useState(loggedInUser.profile_picture)
   const [list, setList] = useState([])
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     getListByUser(loggedInUser.username).then((list) => {
       setList(list.data.userList)
     })
-  }, [])
+  }, []))
 
   let count = 0;
   list.forEach((location) => {
@@ -22,8 +23,6 @@ export default function UserProfile() {
       count ++
     }
   })
-
-  
 
   const handleProfilePictureUpdate = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
@@ -50,9 +49,9 @@ export default function UserProfile() {
       />
       <Button onPress={handleProfilePictureUpdate}  title="Update Avatar"></Button>
     </View>
-    <View>
-      <Text>Bucket Count: {list.length}</Text>
-      <Text>Completed Buckets: {count}</Text>
+    <View style={count}>
+      <Text style={styles.buckets}>Bucket Count: {list.length}</Text>
+      <Text style={styles.completed}>Completed Buckets: {count}</Text>
     </View> 
     </View>
   )
@@ -80,4 +79,15 @@ const styles = StyleSheet.create({
     fontSize: 20,
     alignItems: "center"
   },
+  count: {
+    backgroundColor: "#B2C2D2"
+  },
+  buckets: {
+    textAlign: "center",
+    fontSize: 25
+  },
+  completed: {
+    textAlign: "center",
+    fontSize: 25
+  }
 })  
