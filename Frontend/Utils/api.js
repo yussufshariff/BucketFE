@@ -23,14 +23,30 @@ export const postNewUser = async (newUser) => {
 };
 
 export const patchProfilePic = (user, img) => {
-  return request.patch(`/user/${user}/profilepicture`, {img})
-}
+  return request.patch(`/user/${user}/profilepicture`, { img });
+};
 
 export const postNewLocation = async (newLocation) => {
-  console.log(newLocation)
+  console.log(newLocation);
   try {
     return request.post('/locations', newLocation).then((response) => {
       return response.data.newLocation;
+    });
+  } catch {}
+};
+
+export const deleteFromList = async (user, location) => {
+  try {
+    return request.delete(`${user}/list/${location}`).then((response) => {
+      return response.data;
+    });
+  } catch {}
+};
+
+export const toggleVisited = async (user, location) => {
+  try {
+    return request.patch(`${user}/${location}/visited`).then((response) => {
+      return response.data;
     });
   } catch {}
 };
