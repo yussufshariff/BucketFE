@@ -1,10 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useContext, useCallback, useEffect } from "react";
 import { TextInput, StyleSheet, View, Alert, Platform } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
 import { getAllLocations, getListByUser } from "../Utils/api";
 import UserContext from '../Contexts/userContext';
+import { useFocusEffect } from '@react-navigation/native';
 
 const AddLocation = () => {
   const [locations, setLocations] = useState([]);
@@ -22,14 +23,15 @@ const AddLocation = () => {
   const [userLocations, setUserLocations] = useState([])
   const loggedInUser = useContext(UserContext);
 
-  useEffect(() => {
+  useFocusEffect(
+    useCallback(() => {
     getAllLocations().then((locations) => {
       setLocations(locations);
     }),
       getListByUser(loggedInUser.username).then(({ data }) => {
         setUserLocations(data.userList)
       })
-  }, []);
+  }, []));
 
   useEffect(() => {
     getLocationPermission();
@@ -114,16 +116,6 @@ const AddLocation = () => {
   const userLocationMarkers = markerListMaker(userLocations)
   const locationMarkers = markerListMaker(locations)
 
-
-  locationMarkerSection = () => {
-    locationMarkers.map((marker, index) => (
-      <Marker
-        key={index}
-        coordinate={marker.coordinates}
-        title={marker.title}
-        pinColor={"blue"}
-      />))
-  }
 
   return (
     <View style={{ flex: 1 }}>
