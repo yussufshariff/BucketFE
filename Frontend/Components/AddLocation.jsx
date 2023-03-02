@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { TextInput, StyleSheet, View, Alert } from "react-native";
+import React, { useState, useEffect, useContext } from "react";
+import { TextInput, StyleSheet, View, Alert, Platform } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import LocationCard from "./LocationCard";
 import * as Location from "expo-location";
-import { getAllLocations } from "../Utils/api";
+import { getAllLocations, getListByUser } from "../Utils/api";
+import UserContext from '../Contexts/userContext';
 
 const AddLocation = () => {
   const [locations, setLocations] = useState([]);
@@ -18,10 +19,16 @@ const AddLocation = () => {
     latitudeDelta: 0.01,
     longitudeDelta: 0.001,
   });
+  const [usersLocations, setUsersLocations] = useState([])
+  const loggedInUser = useContext(UserContext);
+
   useEffect(() => {
     getAllLocations().then((locations) => {
       setLocations(locations);
-    });
+    }),
+    getListByUser(loggedInUser.username).then(({data}) => {
+      setUsersLocations(data.userList)
+    })
   }, []);
 
   useEffect(() => {
@@ -80,15 +87,33 @@ const AddLocation = () => {
       console.error(error);
     }
   };
-  const locationMarkers = locations.map((location) => {
-    return {
-      title: location.name,
-      coordinates: {
-        latitude: parseFloat(location.coordinates[1]),
-        longitude: parseFloat(location.coordinates[0]),
-      },
-    };
-  });
+
+  const markerListMaker = (locationArray) => {
+    if(typeof locationArray === 'string') return []
+    else return locationArray.map((location) => {
+      if (Platform.OS === 'ios') {
+        return {
+          title: location.name,
+          coordinates: {
+            latitude: location.coordinates[1],
+            longitude: location.coordinates[0],
+          },
+        }
+      };
+      if(Platform.OS === 'android') {
+        return {
+          title: location.name, 
+          coordinates: {
+            latitude: parseFloat(location.coordinates[1]),
+            longitude: parseFloat(location.coordinates[0]),
+          },
+        }
+      }
+    })
+  }
+
+  const locationMarkers = markerListMaker(locations)
+  const userLocationMarkers = markerListMaker(usersLocations)
 
   return (
     <View style={{ flex: 1 }}>
@@ -102,8 +127,15 @@ const AddLocation = () => {
             key={index}
             coordinate={marker.coordinates}
             title={marker.title}
-          />
-        ))}
+            pinColor={"blue"}
+          />))}
+          {userLocationMarkers.map((marker, index) => (
+          <Marker
+            key={index}
+            coordinate={marker.coordinates}
+            title={marker.title}
+            pinColor={"green"}
+          />))}
       </MapView>
       <View style={{ position: "absolute", top: 10, width: "100%" }}>
         <TextInput
@@ -114,7 +146,7 @@ const AddLocation = () => {
           onSubmitEditing={performSearch}
         />
       </View>
-      {selectedLocation && <LocationCard selectedLocation={selectedLocation} />}
+      {selectedLocation && <LocationCard selectedLocation={selectedLocation} setLocations={setLocations} setUsersLocations={setUsersLocations}/>}
     </View>
   );
 };

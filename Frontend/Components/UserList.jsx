@@ -15,12 +15,12 @@ import { getListByUser, deleteFromList, toggleVisited } from '../Utils/api';
 const UserList = ({ navigation }) => {
   const loggedInUser = useContext(UserContext);
   const [userList, setUserList] = useState([]);
-console.log(userList);
+  
   useEffect(() => {
-    getListByUser(loggedInUser.username).then(({ data }) => {
-      setUserList(data.userList);
-    });
-  }, []);
+    getListByUser(loggedInUser.username).then(({ data }
+      if(typeof data.userList === 'object')setUserList(data.userList) 
+    })
+  }, [])
 
   const locationData = userList.map((location) => {
     return location;

@@ -10,20 +10,14 @@ import AddToBucket from "./AddToBucket";
 import RemoveFromBucket from "./RemoveFromBucket";
 import { useNavigation } from "@react-navigation/native";
 import UserContext from "../Contexts/userContext";
-import LocationDetails from "./LocationDetails";
 
-const LocationCard = ({ selectedLocation }) => {
-  const loggedInUser = useContext(UserContext);
+const LocationCard = ({ selectedLocation, setLocations, setUsersLocations }) => {
   const [locationData, setLocationData] = useState(null);
   const [addedLocation, setAddedLocation] = useState(null);
   const [removedLocation, setRemovedLocation] = useState(null);
   const [addColour, setAddColour] = useState({ ...styles.place });
 
   const navigation = useNavigation();
-
-  const handleProfilePress = () => {
-    navigation.navigate("LocationDetails");
-  };
 
   const onPressClose = () => {
     setLocationData(null);
@@ -73,7 +67,8 @@ const LocationCard = ({ selectedLocation }) => {
           <AddToBucket
             onPress={onPressAdd}
             locationData={locationData}
-            setAddedLocation={setAddedLocation}
+            setLocations={setLocations} 
+            setUsersLocations={setUsersLocations}
           />
           {addedLocation && (
             <Text style={styles.addedLocation}>
