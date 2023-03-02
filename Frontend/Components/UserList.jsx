@@ -16,7 +16,7 @@ const UserList = () => {
 
   useEffect(() => {
     getListByUser(loggedInUser.username).then(({ data }) => {
-      setUserList(data.userList)
+      if(typeof data.userList === 'object')setUserList(data.userList) 
     })
   }, [])
 

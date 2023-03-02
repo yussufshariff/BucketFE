@@ -26,11 +26,15 @@ export const patchProfilePic = (user, img) => {
   return request.patch(`/user/${user}/profilepicture`, {img})
 }
 
-export const postNewLocation = async (newLocation) => {
-  console.log(newLocation)
-  try {
-    return request.post('/locations', newLocation).then((response) => {
-      return response.data.newLocation;
+export const postNewLocation = (newLocation) => {
+    return request.post('/locations', newLocation).then(({config}) => {
+      console.log(config.data, 'config')
+      return config.data
     });
-  } catch {}
 };
+
+export const addToBucketList = (username, body) => {
+  return request.patch(`/${username}/list`, JSON.parse(body)).then((response) => {
+    console.log(response)
+  })
+}
