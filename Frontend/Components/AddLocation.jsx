@@ -26,9 +26,9 @@ const AddLocation = () => {
     getAllLocations().then((locations) => {
       setLocations(locations);
     }),
-    getListByUser(loggedInUser.username).then(({data}) => {
-      setUserLocations(data.userList)
-    })
+      getListByUser(loggedInUser.username).then(({ data }) => {
+        setUserLocations(data.userList)
+      })
   }, []);
 
   useEffect(() => {
@@ -89,31 +89,41 @@ const AddLocation = () => {
   };
 
   const markerListMaker = (locationArray) => {
-    if(typeof locationArray === 'string') return []
-    else return locationArray.map((location) => {
-      if (Platform.OS === 'ios') {
-        return {
-          title: location.name,
-          coordinates: {
-            latitude: location.coordinates[1],
-            longitude: location.coordinates[0],
-          },
-        }
-      };
-      if(Platform.OS === 'android') {
-        return {
-          title: location.name, 
-          coordinates: {
-            latitude: parseFloat(location.coordinates[1]),
-            longitude: parseFloat(location.coordinates[0]),
-          },
-        }
-      }
+    if (typeof locationArray === 'string') return []
+    return locationArray.map((location) => {
+        if (Platform.OS === 'ios') {
+          return {
+            title: location.name,
+            coordinates: {
+              latitude: location.coordinates[1],
+              longitude: location.coordinates[0],
+            },
+          }
+        };
+        if (Platform.OS === 'android') {
+          return {
+            title: location.name,
+            coordinates: {
+              latitude: parseFloat(location.coordinates[1]),
+              longitude: parseFloat(location.coordinates[0]),
+            }}
+          }
     })
   }
 
-  const locationMarkers = markerListMaker(locations)
   const userLocationMarkers = markerListMaker(userLocations)
+  const locationMarkers = markerListMaker(locations)
+
+
+  locationMarkerSection = () => {
+    locationMarkers.map((marker, index) => (
+      <Marker
+        key={index}
+        coordinate={marker.coordinates}
+        title={marker.title}
+        pinColor={"blue"}
+      />))
+  }
 
   return (
     <View style={{ flex: 1 }}>
@@ -129,12 +139,13 @@ const AddLocation = () => {
             title={marker.title}
             pinColor={"blue"}
           />))}
-          {userLocationMarkers.map((marker, index) => (
+        {userLocationMarkers.map((marker, index) => (
           <Marker
             key={index}
             coordinate={marker.coordinates}
             title={marker.title}
             pinColor={"green"}
+            style={{position: "absolute"}}
           />))}
       </MapView>
       <View style={{ position: "absolute", top: 10, width: "100%" }}>
@@ -146,13 +157,13 @@ const AddLocation = () => {
           onSubmitEditing={performSearch}
         />
       </View>
-      {selectedLocation && 
-      <LocationCard 
-      selectedLocation={selectedLocation}
-      setLocations={setLocations}
-      locations={locations}
-      setUserLocations={setUserLocations}
-      userLocations={userLocations}/>
+      {selectedLocation &&
+        <LocationCard
+          selectedLocation={selectedLocation}
+          setLocations={setLocations}
+          locations={locations}
+          setUserLocations={setUserLocations}
+          userLocations={userLocations} />
       }
     </View>
   );

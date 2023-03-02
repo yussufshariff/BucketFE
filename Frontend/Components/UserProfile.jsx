@@ -1,15 +1,30 @@
-import { Image, View, StyleSheet, Button } from 'react-native';
-import React, { useContext, useState } from 'react';
+import { Image, View, StyleSheet, Button, Text } from 'react-native';
+import React, { useContext, useState, useEffect } from 'react';
 import UserContext from "../Contexts/userContext";
 import * as ImagePicker from 'expo-image-picker';
-import { patchProfilePic } from '../Utils/api';
+import { patchProfilePic, getListByUser } from '../Utils/api';
 
 
 export default function UserProfile() {
   const loggedInUser = useContext(UserContext);
-  const imageUrl = loggedInUser.profile_picture;
-  const [profilePic, setProfilePic] = useState([])
- 
+  const [profilePic, setProfilePic] = useState(loggedInUser.profile_picture)
+  const [list, setList] = useState([])
+
+  useEffect(() => {
+    getListByUser(loggedInUser.username).then((list) => {
+      setList(list.data.userList)
+    })
+  }, [])
+
+  let count = 0;
+  list.forEach((location) => {
+    if(location.hasVisited === true) {
+      count ++
+    }
+  })
+
+  
+
   const handleProfilePictureUpdate = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync();
     if (status !== 'granted') {
@@ -27,12 +42,18 @@ export default function UserProfile() {
   }
 
   return (
+    <View>
     <View style={styles.header_style}>
       <Image
         style={styles.avatar}
-        source={{imageUrl}}
+        source={{uri: profilePic}}
       />
-      <Button title="Open Camera Roll" onPress={handleProfilePictureUpdate} />
+      <Button onPress={handleProfilePictureUpdate}  title="Update Avatar"></Button>
+    </View>
+    <View>
+      <Text>Bucket Count: {list.length}</Text>
+      <Text>Completed Buckets: {count}</Text>
+    </View> 
     </View>
   )
 }
