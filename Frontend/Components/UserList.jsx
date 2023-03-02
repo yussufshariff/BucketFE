@@ -10,7 +10,7 @@ import { React, useState, useContext, useEffect } from "react";
 import UserContext from "../Contexts/userContext";
 import { getListByUser } from "../Utils/api";
 
-const UserList = () => {
+const UserList = ({navigation}) => {
   const loggedInUser = useContext(UserContext);
   const [userList, setUserList] = useState([]);
 
@@ -47,9 +47,12 @@ const UserList = () => {
     <FlatList
       data={locationNames}
       renderItem={({ item }) => (
-        <Text style={styles.item_style}>{locationNameFormatter(item)}</Text>
+        <Text onPress={() => {
+          console.log(item)
+        navigation.navigate("AddLocation", { location: (item) })
+        }} style={styles.item_style}>{locationNameFormatter(item)} </Text>
       )}
-      ListHeaderComponent={header}
+      ListHeaderComponent={header}  
     />
   )
 }
