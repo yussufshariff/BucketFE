@@ -7,13 +7,14 @@ import UserContext from './Contexts/userContext';
 import LocationContext from './Contexts/locationContext';
 import LocationDetails from './Components/LocationDetails';
 import Tab from './Components/Tab'
+import { LogBox } from 'react-native';
 
 const Stack = createNativeStackNavigator();
-
+LogBox.ignoreAllLogs()
 export default function App() {
   const [settingUser, setSettingUser] = useState({});
   const [settingLocation, setSettingLocation] = useState({});
-  console.disableYellowBox = true;
+  
 
   const userSettings = {
     bucket_list: [],
