@@ -42,22 +42,21 @@ console.log(userList);
             uri: imageUrl,
           }}
         />
-        <Text style={styles.name}>{loggedInUser.username}</Text>
+        <Text style={styles.user_name}>{loggedInUser.username}</Text>
       </View>
     );
   };
   return (
     <FlatList
+    styles={styles.container}
       data={locationData}
       renderItem={({ item }) => (
-        <Text
-          onPress={() => {
-            console.log(item);
-            navigation.navigate('AddLocation', { location: item });
-          }}
-          style={styles.item_style}
-        >
+        <View style={styles.container}>
+        <View style={styles.item_style}> 
+        <Text style={styles.title}>
           {locationNameFormatter(item)}
+          </Text>
+          </View>
           <Pressable
             style={styles.deleteButton}
             onPress={() => {
@@ -71,6 +70,7 @@ console.log(userList);
                   },
                   {
                     text: 'OK',
+                    
                     onPress: (input) => {
                       deleteFromList(loggedInUser.username, item.name).then(
                         () => {
@@ -107,7 +107,7 @@ console.log(userList);
           >
             <Text>Visited</Text>
           </Pressable>
-        </Text>
+        </View>
       )}
       ListHeaderComponent={header}
     />
@@ -116,13 +116,15 @@ console.log(userList);
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    padding: 16,
+    flexDirection: 'column',
+    textAlign: 'center',
+    flex: 0.5,
+    padding: 10,
   },
 
   title: {
     textAlign: 'center',
-    fontSize: 25,
+    fontSize: 15,
     padding: 10,
   },
   images: {
@@ -141,7 +143,13 @@ const styles = StyleSheet.create({
     margin: 10,
   },
   name: {
-    fontSize: 22,
+    fontSize: 5,
+    color: 'black',
+    fontyWeight: '600',
+    alignItems: 'center',
+  },
+  user_name: {
+    fontSize: 35,
     color: 'black',
     fontyWeight: '600',
     alignItems: 'center',
@@ -161,6 +169,7 @@ const styles = StyleSheet.create({
     padding: 10,
     marginVertical: 8,
     marginHorizontal: 16,
+    borderRadius: 10,
   },
   header_style: {
     textAlign: 'center',
@@ -176,7 +185,10 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'red',
+    backgroundColor: '#f44336',
+    width: 200,
+    height: 40,
+    marginHorizontal: 75,
   },
   visitedButtonTrue: {
     alignItems: 'center',
@@ -185,7 +197,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'green',
+    backgroundColor: '#4caf50',
+    width: 200,
+    height: 40,
+    marginVertical: 10,
+    marginHorizontal: 75,
   },
   visitedButtonFalse: {
     alignItems: 'center',
@@ -194,7 +210,11 @@ const styles = StyleSheet.create({
     paddingHorizontal: 32,
     borderRadius: 4,
     elevation: 3,
-    backgroundColor: 'white',
+    backgroundColor: '#e7e7e7',
+    width: 200,
+    height: 40,
+    marginVertical: 10,
+    marginHorizontal: 75,
   },
 });
 export default UserList;
