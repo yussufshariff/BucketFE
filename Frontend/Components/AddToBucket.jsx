@@ -3,7 +3,7 @@ import React, { useContext } from 'react';
 import UserContext from '../Contexts/userContext';
 import { postNewLocation, addToBucketList } from '../Utils/api';
 
-const AddToBucket = ({ locationData, setLocations, Locations, setUserLocations, userLocations }) => {
+const AddToBucket = ({ locationData, setLocations, locations, setUserLocations, userLocations }) => {
   const loggedInUser = useContext(UserContext);
   const user = loggedInUser.username;
 
@@ -11,7 +11,10 @@ const AddToBucket = ({ locationData, setLocations, Locations, setUserLocations, 
       postNewLocation(
         {name: locationData.display_name, coordinates: [locationData.lon, locationData.lat] }
       ).then((response) => {
-        addToBucketList(user, response)
+        const parsedResponse = JSON.parse(response)
+        addToBucketList(user, parsedResponse)
+        setUserLocations([...locations, parsedResponse])
+        setLocations([...locations, parsedResponse])
       })
     }
 
